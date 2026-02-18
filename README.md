@@ -4,7 +4,15 @@
 
 ## Installation
 
-#### Export preparation
+#### Export and preparation
+
+```bash
+# setfont ter-128b
+# timedatectl
+# ping ping.archlinux.org
+```
+
+- TODO add wifi and other connections link
 
 Examples:
 - user: john
@@ -13,7 +21,7 @@ Examples:
 - keys: us
 - device: /dev/sda | /dev/vda | /dev/nvme0n1 (if ends on digit add `p` to partition exports before 1-8 digit )
 - zone: Atlantic/Madeira
-- efi: efibootmgr if UEFI else empty
+- uefi: efibootmgr if UEFI else empty
 
 ```bash
 # [ -d /sys/firmware/efi ] && export yo_uefi="efibootmgr"
@@ -31,27 +39,6 @@ Examples:
 # export yo_decode=${yo_device}6
 # export yo_detemp=${yo_device}7
 # export yo_dehome=${yo_device}8
-```
-
-#### Font
-> set font terminal 128 bold
-
-```bash
-# setfont ter-128b
-```
-
-#### Time
-> time date control (update system clock)
-
-```bash
-# timedatectl
-```
-
-#### Ping
-> ping (check the connection)
-
-```bash
-# ping ping.archlinux.org
 ```
 
 #### Partition
@@ -101,7 +88,7 @@ Examples:
 # arch-chroot /mnt
 # ln -s /usr/bin/nvim /usr/bin/vi
 # ln -sf /usr/share/zoneinfo/${yo_zone} /etc/localtime
-# vi /etc/locale.gen
+# echo "${yo_lang} UTF-8" >> /etc/locale.gen
 # locale-gen
 # echo "LANG=${yo_lang}" > /etc/locale.conf
 # echo "${yo_host}" > /etc/hostname
@@ -121,12 +108,18 @@ $ exit
 
 #### Post
 
+- make file systems
+
 ```bash
 # mkfs.btrfs -L PAST ${yo_depast}
 # mkfs.xfs -L DATA ${yo_dedata}
 # mkfs.f2fs -l CODE -O extra_attr,compression ${yo_decode}
 # mkfs.ext2 -L TEMP ${yo_detemp}
+```
 
+- mounting
+
+```bash
 # mount -L PAST -o compress=zstd:8 --mkdir /mnt/past
 # mount -L DATA /mnt/home/${yo_user}/data
 # mount -L CODE -o compress_extension=hxx /mnt/home/${yo_user}/code
@@ -146,8 +139,10 @@ $ sudo vi /etc/timeshift/timeshift.json
 ```
 
 - update config with backup_device_uuid PAST partition uuid, add to exclude list:
-  - /past\*\*
+  - /root/\*\*
+  - /past/\*\*
   - /home/\*\*
+  - /home/${yo_user}/\*\*
   - /home/${yo_user}/data/\*\*
   - /home/${yo_user}/code/\*\*,
   - /home/${yo_user}/temp/\*\*,

@@ -1,6 +1,8 @@
 # ARCHRICE
 
-> In progress...
+> Arch installation on typical bios or uefi devices with completely REMOVING data
+
+> Caution: for iso from 2026-02-01
 
 ## Installation
 
@@ -14,10 +16,16 @@
 
 - TODO add wifi and other connections link
 
+- list of available devices
+
+```bash
+# lsblk -f
+```
+
 Examples:
 - user: john
 - host: local
-- locale: en_US.UTF-8
+- lang: en_US.UTF-8
 - keys: us
 - device: /dev/sda | /dev/vda | /dev/nvme0n1 (if ends on digit add `p` to partition exports before 1-8 digit )
 - zone: Atlantic/Madeira
@@ -49,11 +57,11 @@ Examples:
 ```bash
 # cfdisk ${yo_device}
 # mkswap ${yo_deswap}
-# wipefs ${yo_deswap}
+# wipefs -a ${yo_deswap}
 # gdisk ${yo_device}
 ```
 
-- Run partitioning again but now create proper partitions
+- Run partitioning again but now create proper partitions with gdisk
 
 >| # | NAME | CODE | SIZE | SYSTEM |        PATH        |
 >|---|------|------|------|--------|--------------------|
@@ -69,10 +77,17 @@ Examples:
 
 - 3\* - either UEFI or BIOS based on your system
 
+- if there are leftovers of previous partition signatures wipe them all
+
+>
+> - ~# lsblk -f~
+> - ~# wipefs -a~
+>
+
 ```bash
 # mkswap -L SWAP ${yo_deswap}
 # mkfs.ext4 -L ROOT ${yo_deroot}
-# [ -n "${yo_uefi}" ] && mkfs.fat -L BOOT -F 32 ${yo_deboot}
+# [ -n "${yo_uefi}" ] && mkfs.fat -n BOOT -F 32 ${yo_deboot}
 # mkfs.nilfs2 -L HOME ${yo_dehome}
 # swapon -L SWAP
 # mount -L ROOT /mnt
@@ -83,6 +98,7 @@ Examples:
 #### Pacstrap
 
 ```bash
+# mkdir /mnt/etc
 # echo "KEYMAP=${yo_keys}" > /mnt/etc/vconsole.conf
 # pacstrap -K /mnt base base-devel linux linux-firmware neovim networkmanager grub ${yo_uefi}
 # arch-chroot /mnt
@@ -132,7 +148,7 @@ $ exit
 #### Timeshift
 
 ```bash
-$ sudo systemctl enable --now NetworkManager
+$ sudo systemctl enable --now NetworkManager.service
 $ sudo pacman -S timeshift
 $ sudo timeshift --check
 $ sudo vi /etc/timeshift/timeshift.json
@@ -142,10 +158,11 @@ $ sudo vi /etc/timeshift/timeshift.json
   - /root/\*\*
   - /past/\*\*
   - /home/\*\*
-  - /home/${yo_user}/\*\*
   - /home/${yo_user}/data/\*\*
   - /home/${yo_user}/code/\*\*,
   - /home/${yo_user}/temp/\*\*,
+
+- grub should be on ROOT partition (ended with 2)
 
 ```bash
 $ sudo timeshift --create --comment "init"

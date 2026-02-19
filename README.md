@@ -40,12 +40,12 @@ Examples:
 # export yo_lang=your-locale
 # export yo_device=your-device-name
 # export yo_deswap=${yo_device}1
-# export yo_deroot=${yo_device}2
-# export yo_deboot=${yo_device}3
-# [ -n "${yo_uefi}" ] && export yo_deuefi=${yo_device}4
-# export yo_depast=${yo_device}5
-# export yo_dedata=${yo_device}6
-# export yo_decode=${yo_device}7
+# export yo_depast=${yo_device}2
+# export yo_deroot=${yo_device}3
+# export yo_deboot=${yo_device}4
+# [ -n "${yo_uefi}" ] && export yo_deuefi=${yo_device}5
+# export yo_decode=${yo_device}6
+# export yo_dedata=${yo_device}7
 # export yo_dehome=${yo_device}8
 ```
 
@@ -62,18 +62,19 @@ Examples:
 ```
 
 - Run partitioning again but now create proper partitions with `gdisk`, `!` is required file `system`
+  - for now 512G disk size oriented
 
 >| # | NAME | CODE | SIZE | SYSTEM |        PATH        | COMMENT |
 >|---|------|------|------|--------|--------------------|---------|
 >| 1 | SWAP | 8200 |   8G |   --   |         --         | Linux swap |
->| 2 | ROOT | 8304 |  48G | ext4   | /                  | Linux root x86_64 |
->| 3 | BOOT | EA00 |   2G | ext4!  | /boot              | XBOOTLDR |
->| 4*| UEFI | EF00 |   1G | fat32! | /boot/efi          | |
->| 4*| BIOS | EF02 |   1M |   --   |         --         | no need formatting |
->| 5 | PAST | 8300 |  80G | btrfs  | /root/past         | compression zsd:8 |
->| 6 | DATA | 8300 | 256G | xfs    | /home/yo_user/data | assets |
->| 7 | CODE | 8300 |  32G | f2fs   | /home/yo_user/code | compression attribute enabled default |
->| 8 | HOME | 8302 | else | nilfs2 | /home              | |
+>| 2 | PAST | 8300 |  80G | btrfs  | /root/past         | timeshift, compression zsd:8 |
+>| 3 | ROOT | 8304 |  48G | ext4   | /                  | Linux root x86_64 |
+>| 4 | BOOT | EA00 |   2G | ext4!  | /boot              | XBOOTLDR, better ext4 to avoid subtle issues for boot loading |
+>| 5*| UEFI | EF00 |   1G | fat32! | /boot/efi          | efi suggests fat formatting |
+>| 5*| BIOS | EF02 |   1M |   --   |         --         | bios no need formatting |
+>| 6 | CODE | 8300 |  32G | f2fs   | /home/yo_user/code | compression attribute enabled default |
+>| 7 | DATA | 8300 | 256G | xfs    | /home/yo_user/data | assets |
+>| 8 | HOME | 8302 | else | nilfs2 | /home              | Linux home/|
 
 - 4\* - either UEFI or BIOS based on your system
 
@@ -115,6 +116,7 @@ Examples:
 # arch-chroot /mnt
 # ln -s /usr/bin/nvim /usr/bin/vi
 # ln -sf /usr/share/zoneinfo/${yo_zone} /etc/localtime
+# hwclock --systohc
 # echo "${yo_lang} UTF-8" >> /etc/locale.gen
 # locale-gen
 # echo "LANG=${yo_lang}" > /etc/locale.conf
@@ -151,7 +153,13 @@ $ exit
 # mount -L DATA /mnt/home/${yo_user}/data
 # mount -L CODE -o compress_extension=hxx /mnt/home/${yo_user}/code
 # chown -R 1000:1000 /mnt/home/${yo_user}
+```
+
+- generation file system table (check if `fstab` generated correctly) and rebooting
+
+```bash
 # genfstab -U /mnt > /mnt/etc/fstab
+# umount -R /mnt
 # reboot
 ```
 
@@ -171,7 +179,7 @@ $ sudo vi /etc/timeshift/timeshift.json
 > - /home/~~USER~~/data/\*\*
 > - /home/~~USER~~/code/\*\*
 
-- grub should be on BOOT partition (device partition ended with 3)
+- grub should be on BOOT partition (device partition ended with 4)
 
 ```bash
 $ sudo timeshift --create --comment "init"

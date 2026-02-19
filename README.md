@@ -42,10 +42,10 @@ Examples:
 # export yo_deswap=${yo_device}1
 # export yo_deroot=${yo_device}2
 # export yo_deboot=${yo_device}3
-# export yo_depast=${yo_device}4
-# export yo_dedata=${yo_device}5
-# export yo_decode=${yo_device}6
-# export yo_detemp=${yo_device}7
+# [ -n "${yo_uefi}" ] && export yo_deuefi=${yo_device}4
+# export yo_depast=${yo_device}5
+# export yo_dedata=${yo_device}6
+# export yo_decode=${yo_device}7
 # export yo_dehome=${yo_device}8
 ```
 
@@ -61,38 +61,49 @@ Examples:
 # gdisk ${yo_device}
 ```
 
-- Run partitioning again but now create proper partitions with gdisk
+- Run partitioning again but now create proper partitions with `gdisk`, `!` is required file `system`
 
->| # | NAME | CODE | SIZE | SYSTEM |        PATH        |
->|---|------|------|------|--------|--------------------|
->| 1 | SWAP | 8200 |  15G |   --   |         --         |
->| 2 | ROOT | 8304 |  48G | ext4   | /                  |
->| 3*| BOOT | EF00 |   1G | fat32  | /boot/efi          |
->| 3*| BOOT | EF02 |   1M |   --   |         --         |
->| 4 | PAST | 8300 |  80G | btrfs  | /past              |
->| 5 | DATA | 8300 | 256G | xfs    | /home/yo_user/data |
->| 6 | CODE | 8300 |  24G | f2fs   | /home/yo_user/code |
->| 7 | TEMP | 8300 |   8G | ext2   | /home/yo_user/temp |
->| 8 | HOME | 8302 | else | nilfs2 | /home              |
+>| # | NAME | CODE | SIZE | SYSTEM |        PATH        | COMMENT |
+>|---|------|------|------|--------|--------------------|---------|
+>| 1 | SWAP | 8200 |   8G |   --   |         --         | Linux swap |
+>| 2 | ROOT | 8304 |  48G | ext4   | /                  | Linux root x86_64 |
+>| 3 | BOOT | EA00 |   2G | ext4!  | /boot              | XBOOTLDR |
+>| 4*| UEFI | EF00 |   1G | fat32! | /boot/efi          | |
+>| 4*| BIOS | EF02 |   1M |   --   |         --         | no need formatting |
+>| 5 | PAST | 8300 |  80G | btrfs  | /root/past         | compression zsd:8 |
+>| 6 | DATA | 8300 | 256G | xfs    | /home/yo_user/data | assets |
+>| 7 | CODE | 8300 |  32G | f2fs   | /home/yo_user/code | compression attribute enabled default |
+>| 8 | HOME | 8302 | else | nilfs2 | /home              | |
 
-- 3\* - either UEFI or BIOS based on your system
+- 4\* - either UEFI or BIOS based on your system
 
 - if there are leftovers of previous partition signatures wipe them all
 
 >
 > - ~# lsblk -f~
-> - ~# wipefs -a~
+> - ~# wipefs -a /dev/partitions~
 >
+
+#### Pre
+
+- making
 
 ```bash
 # mkswap -L SWAP ${yo_deswap}
 # mkfs.ext4 -L ROOT ${yo_deroot}
-# [ -n "${yo_uefi}" ] && mkfs.fat -n BOOT -F 32 ${yo_deboot}
+# mkfs.ext4 -L BOOT ${yo_deboot}
 # mkfs.nilfs2 -L HOME ${yo_dehome}
+# [ -n "${yo_uefi}" ] && mkfs.fat -n UEFI -F 32 ${yo_deuefi}
+```
+
+- mounting
+
+```
 # swapon -L SWAP
 # mount -L ROOT /mnt
-# [ -n "${yo_uefi}" ] && mount -L BOOT --mkdir /mnt/boot/efi
+# mount -L BOOT --mkdir /mnt/boot
 # mount -L HOME --mkdir /mnt/home
+# [ -n "${yo_uefi}" ] && mount -L UEFI --mkdir /mnt/boot/efi
 ```
 
 #### Pacstrap
@@ -116,8 +127,9 @@ Examples:
 # visudo
 # passwd
 # passwd ${yo_user}
+# mkdir /root/past
 # su - ${yo_user}
-$ mkdir {data,code,temp}
+$ mkdir {code,data}
 $ exit
 # exit
 ```
@@ -130,16 +142,14 @@ $ exit
 # mkfs.btrfs -L PAST ${yo_depast}
 # mkfs.xfs -L DATA ${yo_dedata}
 # mkfs.f2fs -l CODE -O extra_attr,compression ${yo_decode}
-# mkfs.ext2 -L TEMP ${yo_detemp}
 ```
 
 - mounting
 
 ```bash
-# mount -L PAST -o compress=zstd:8 --mkdir /mnt/past
+# mount -L PAST -o compress=zstd:8 --mkdir /mnt/root/past
 # mount -L DATA /mnt/home/${yo_user}/data
 # mount -L CODE -o compress_extension=hxx /mnt/home/${yo_user}/code
-# mount -L TEMP /mnt/home/${yo_user}/temp
 # chown -R 1000:1000 /mnt/home/${yo_user}
 # genfstab -U /mnt > /mnt/etc/fstab
 # reboot
@@ -149,20 +159,19 @@ $ exit
 
 ```bash
 $ sudo systemctl enable --now NetworkManager.service
-$ sudo pacman -S timeshift
+$ sudo pacman -S timeshift btrfs-progs dosfstools f2fs-tools e2fsprogs nilfs-utils xfsprogs htop
 $ sudo timeshift --check
 $ sudo vi /etc/timeshift/timeshift.json
 ```
 
 - update config with backup_device_uuid PAST partition uuid, add to exclude list:
-  - /root/\*\*
-  - /past/\*\*
-  - /home/\*\*
-  - /home/${yo_user}/data/\*\*
-  - /home/${yo_user}/code/\*\*,
-  - /home/${yo_user}/temp/\*\*,
+> - /root/\*\*
+> - /root/past/\*\*
+> - /home/\*\*
+> - /home/~~USER~~/data/\*\*
+> - /home/~~USER~~/code/\*\*
 
-- grub should be on ROOT partition (ended with 2)
+- grub should be on BOOT partition (device partition ended with 3)
 
 ```bash
 $ sudo timeshift --create --comment "init"

@@ -13,12 +13,15 @@ $ sudo systemctl enable xdm-archlinux.service
 > herbstluftwm
 
 ```bash
-$ echo "exec /usr/bin/herbstluftwm" > ~/.xsession
-$ sudo pacman -S xterm herbstluftwm
+$ sudo pacman -S alacritty herbstluftwm
+$ cd
+$ echo "export TERMINAL=alacritty" > .xsession
+$ echo "exec herbstluftwm" >> .xsession
+$ chmod +x .xsession
 $ sudo systemctl start xdm-archlinux.service
 ```
 
-- alt-enter to open terminal emulator (xterm by default)
+- alt-enter to open terminal emulator, and configure window manager
 
 ```bash
 $ cd
@@ -30,4 +33,4 @@ $ vi .config/herbstluftwm/autostart
 - change default mod key from alt to super key
 
 #### Terminal Emulator
-> alacritty
+> alacritty (configuration)

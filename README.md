@@ -9,7 +9,7 @@
 #### Export and preparation
 
 ```bash
-# setfont ter-128b
+# setfont ter-c28b
 # timedatectl
 # ping ping.archlinux.org
 ```
@@ -32,7 +32,9 @@ Examples:
 - uefi: efibootmgr if UEFI else empty
 
 ```bash
-# [ -d /sys/firmware/efi ] && export yo_uefi="efibootmgr"
+# [ -d /sys/firmware/efi ] && export yo_uefi=efibootmgr
+# export yo_exts_=s,asm,css,html,md,txt,c,h,cc,hh,hpp,cpp,js,mjs,hxx,cxx
+# export yo_compress="compress_extension=${yo_exts//,/,compress_extension=}"
 # export yo_user=your-user-name
 # export yo_host=your-host-name
 # export yo_zone=your-zone-name
@@ -50,18 +52,13 @@ Examples:
 ```
 
 #### Partition
-> Completely Format DISK (cfdisk)
-
-- Create GPT partition of linux swap and wipe it
+> Completely Format DISK (wipefs)
 
 ```bash
-# cfdisk ${yo_device}
-# mkswap ${yo_deswap}
-# wipefs -a ${yo_deswap}
-# gdisk ${yo_device}
+# wipefs -a $yo_device
 ```
 
-- Run partitioning again but now create proper partitions with `gdisk`, `!` is required file `system`
+- Create partitions with `gdisk`, `!` is required file `system`
   - for now 512G disk size oriented
 
 >| # | NAME | CODE | SIZE | SYSTEM |        PATH        | COMMENT |
@@ -72,11 +69,11 @@ Examples:
 >| 4 | BOOT | EA00 |   2G | ext4!  | /boot              | XBOOTLDR, better ext4 to avoid subtle issues for boot loading |
 >| 5*| UEFI | EF00 |   1G | fat32! | /boot/efi          | efi suggests fat formatting |
 >| 5*| BIOS | EF02 |   1M |   --   |         --         | bios no need formatting |
->| 6 | CODE | 8300 |  32G | f2fs   | /home/yo_user/code | compression attribute enabled default |
+>| 6 | CODE | 8300 |  32G | f2fs   | /home/yo_user/code | compression attribute enabled, compress extensions: asm,c,cpp,txt,js ... |
 >| 7 | DATA | 8300 | 256G | xfs    | /home/yo_user/data | assets |
->| 8 | HOME | 8302 | else | nilfs2 | /home              | Linux home/|
+>| 8 | HOME | 8302 | full | nilfs2 | /home              | Linux home/|
 
-- 4\* - either UEFI or BIOS based on your system
+- 5\* - either UEFI or BIOS based on your system
 
 - if there are leftovers of previous partition signatures wipe them all
 
@@ -90,10 +87,10 @@ Examples:
 - making
 
 ```bash
-# mkswap -L SWAP ${yo_deswap}
-# mkfs.ext4 -L ROOT ${yo_deroot}
-# mkfs.ext4 -L BOOT ${yo_deboot}
-# mkfs.nilfs2 -L HOME ${yo_dehome}
+# mkswap -L SWAP $yo_deswap
+# mkfs.ext4 -L ROOT $yo_deroot
+# mkfs.ext4 -L BOOT $yo_deboot
+# mkfs.nilfs2 -L HOME $yo_dehome
 # [ -n "${yo_uefi}" ] && mkfs.fat -n UEFI -F 32 ${yo_deuefi}
 ```
 
@@ -111,26 +108,26 @@ Examples:
 
 ```bash
 # mkdir /mnt/etc
-# echo "KEYMAP=${yo_keys}" > /mnt/etc/vconsole.conf
+# echo "KEYMAP=$yo_keys" > /mnt/etc/vconsole.conf
 # pacstrap -K /mnt base base-devel linux linux-firmware neovim networkmanager grub ${yo_uefi}
 # arch-chroot /mnt
 # ln -s /usr/bin/nvim /usr/bin/vi
-# ln -sf /usr/share/zoneinfo/${yo_zone} /etc/localtime
+# ln -sf /usr/share/zoneinfo/$yo_zone /etc/localtime
 # hwclock --systohc
-# echo "${yo_lang} UTF-8" >> /etc/locale.gen
+# echo "$yo_lang UTF-8" >> /etc/locale.gen
 # locale-gen
 # echo "LANG=${yo_lang}" > /etc/locale.conf
 # echo "${yo_host}" > /etc/hostname
-# [ -z "${yo_uefi}" ] && grub-install --target=i386-pc ${yo_device}
+# [ -z "${yo_uefi}" ] && grub-install --target=i386-pc $yo_device
 # [ -n "${yo_uefi}" ] && grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
 # grub-mkconfig -o /boot/grub/grub.cfg
-# useradd -m ${yo_user}
-# usermod -aG wheel ${yo_user}
+# useradd -m $yo_user
+# usermod -aG wheel $yo_user
 # visudo
 # passwd
-# passwd ${yo_user}
+# passwd $yo_user
 # mkdir /root/past
-# su - ${yo_user}
+# su - $yo_user
 $ mkdir {code,data}
 $ exit
 # exit
@@ -141,21 +138,21 @@ $ exit
 - make file systems
 
 ```bash
-# mkfs.btrfs -L PAST ${yo_depast}
-# mkfs.xfs -L DATA ${yo_dedata}
-# mkfs.f2fs -l CODE -O extra_attr,compression ${yo_decode}
+# mkfs.btrfs -L PAST $yo_depast
+# mkfs.xfs -L DATA $yo_dedata
+# mkfs.f2fs -l CODE -O extra_attr,compression $yo_decode
 ```
 
 - mounting
 
 ```bash
 # mount -L PAST -o compress=zstd:8 --mkdir /mnt/root/past
-# mount -L DATA /mnt/home/${yo_user}/data
-# mount -L CODE -o compress_extension=hxx /mnt/home/${yo_user}/code
-# chown -R 1000:1000 /mnt/home/${yo_user}
+# mount -L DATA /mnt/home/$yo_user/data
+# mount -L CODE -o $yo_compress /mnt/home/$yo_user/code
+# chown -R 1000:1000 /mnt/home/$yo_user
 ```
 
-- generation file system table (check if `fstab` generated correctly) and rebooting
+- generate file system table (check if `fstab` generated correctly) and rebooting
 
 ```bash
 # genfstab -U /mnt > /mnt/etc/fstab
@@ -168,8 +165,9 @@ $ exit
 ```bash
 $ sudo systemctl enable --now NetworkManager.service
 $ sudo pacman -S timeshift btrfs-progs dosfstools f2fs-tools e2fsprogs nilfs-utils xfsprogs htop
-$ sudo timeshift --check
-$ sudo vi /etc/timeshift/timeshift.json
+$ sudo timeshift --help
+$ sudo lsblk -o LABEL,UUID | grep PAST > /tmp/past.uuid
+$ sudo vi -p /etc/timeshift/timeshift.json /tmp/past.uuid
 ```
 
 - update config with backup_device_uuid PAST partition uuid, add to exclude list:

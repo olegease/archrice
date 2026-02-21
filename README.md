@@ -34,7 +34,7 @@ Examples:
 ```bash
 # [ -d /sys/firmware/efi ] && export yo_uefi=efibootmgr
 # export yo_exts_=s,asm,css,html,md,txt,c,h,cc,hh,hpp,cpp,js,mjs,hxx,cxx
-# export yo_compress="compress_extension=${yo_exts//,/,compress_extension=}"
+# export yo_compress="compress_extension=${yo_exts_//,/,compress_extension=}"
 # export yo_user=your-user-name
 # export yo_host=your-host-name
 # export yo_zone=your-zone-name
@@ -52,14 +52,23 @@ Examples:
 ```
 
 #### Partition
-> Completely Format DISK (wipefs)
+> Scripted GPT DISK (sgdisk) full partitioning
 
 ```bash
-# wipefs -a $yo_device
+# sgdisk -Z $yo_device
+# sgdisk -n:0:0:+8G   -t:0:8200 -c:0:SWAP $yo_device
+# sgdisk  -n:0:0:+80G -t:0:8300 -c:0:PAST $yo_device
+# sgdisk -n:0:0:+48G  -t:0:8304 -c:0:ROOT $yo_device
+# sgdisk -n:0:0:+2G   -t:0:EA00 -c:0:BOOT $yo_device
+# [ -n "$yo_uefi" ] && sgdisk -n:0:0:+1G -t:0:EF00 -c:UEFI $yo_device
+# [ -z "$yo_uefi" ] && sgdisk -n:0:0:+1M -t:0:EF02 -c:BIOS $yo_device
+# sgdisk -n:0:0:+32G  -t:0:8300 -c:0:CODE $yo_device
+# sgdisk -n:0:0:+256G -t:0:8300 -c:0:DATA $yo_device
+# sgdisk -n:0:0:0     -t:0:8300 -c:0:HOME $yo_device
+#
 ```
 
-- Create partitions with `gdisk`, `!` is required file `system`
-  - for now 512G disk size oriented
+- for now 512G disk size oriented (FILE SYSTEM with ! is required)
 
 >| # | NAME | CODE | SIZE | SYSTEM |        PATH        | COMMENT |
 >|---|------|------|------|--------|--------------------|---------|
@@ -91,7 +100,7 @@ Examples:
 # mkfs.ext4 -L ROOT $yo_deroot
 # mkfs.ext4 -L BOOT $yo_deboot
 # mkfs.nilfs2 -L HOME $yo_dehome
-# [ -n "${yo_uefi}" ] && mkfs.fat -n UEFI -F 32 ${yo_deuefi}
+# [ -n "$yo_uefi" ] && mkfs.fat -n UEFI -F 32 $yo_deuefi
 ```
 
 - mounting
@@ -108,7 +117,7 @@ Examples:
 
 ```bash
 # mkdir /mnt/etc
-# echo "KEYMAP=$yo_keys" > /mnt/etc/vconsole.conf
+# echo KEYMAP=$yo_keys > /mnt/etc/vconsole.conf
 # pacstrap -K /mnt base base-devel linux linux-firmware neovim networkmanager grub ${yo_uefi}
 # arch-chroot /mnt
 # ln -s /usr/bin/nvim /usr/bin/vi
@@ -116,8 +125,8 @@ Examples:
 # hwclock --systohc
 # echo "$yo_lang UTF-8" >> /etc/locale.gen
 # locale-gen
-# echo "LANG=${yo_lang}" > /etc/locale.conf
-# echo "${yo_host}" > /etc/hostname
+# echo LANG=$yo_lang > /etc/locale.conf
+# echo $yo_host > /etc/hostname
 # [ -z "${yo_uefi}" ] && grub-install --target=i386-pc $yo_device
 # [ -n "${yo_uefi}" ] && grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
 # grub-mkconfig -o /boot/grub/grub.cfg
@@ -146,7 +155,7 @@ $ exit
 - mounting
 
 ```bash
-# mount -L PAST -o compress=zstd:8 --mkdir /mnt/root/past
+# mount -L PAST -o compress=zstd:8 /mnt/root/past
 # mount -L DATA /mnt/home/$yo_user/data
 # mount -L CODE -o $yo_compress /mnt/home/$yo_user/code
 # chown -R 1000:1000 /mnt/home/$yo_user
@@ -165,7 +174,7 @@ $ exit
 ```bash
 $ sudo systemctl enable --now NetworkManager.service
 $ sudo pacman -S timeshift btrfs-progs dosfstools f2fs-tools e2fsprogs nilfs-utils xfsprogs htop
-$ sudo timeshift --help
+$ cp /etc/timeshift/default.json /etc/timeshift/timeshift.json
 $ sudo lsblk -o LABEL,UUID | grep PAST > /tmp/past.uuid
 $ sudo vi -p /etc/timeshift/timeshift.json /tmp/past.uuid
 ```

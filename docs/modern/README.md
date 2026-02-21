@@ -1,19 +1,31 @@
 ## MODERN
 > wayland
 
-#### Window manager
-> hyprland
+#### Display Manager
+> greetd-regreet (regreet needs wayland compositor so tight them together)
 
 ```bash
-$ sudo pacman -S hyprland kitty greetd
+$ sudo pacman -S hyprland kitty greetd-regreet
+$ echo "exec-once = regreet; hyprctl dispatch exit" | sudo tee /etc/config/hypr.conf
+
+```
+
+- edit `command = "start-hyprland -- -c /etc/greetd/hypr.conf`
+```bash
 $ sudo vi /etc/greetd/config.toml
 ```
 
-- edit `command = "agreety --cmd start-hyprland"`
-
+- configure regreet appearance
 ```bash
-$ sudo systemctl enable --now greetd.service
+$ sudo vi /etc/greetd/regreet.toml
 ```
 
-#### Display manager
-> ???
+```bash
+$ sudo systemctl start greetd.service
+```
+
+#### Window manager
+> hyprland configuration
+
+#### Terminal emulator
+> kitty configuration

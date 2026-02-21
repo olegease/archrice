@@ -64,7 +64,7 @@ Examples:
 # [ -z "$yo_uefi" ] && sgdisk -n:0:0:+1M -t:0:EF02 -c:BIOS $yo_device
 # sgdisk -n:0:0:+32G  -t:0:8300 -c:0:CODE $yo_device
 # sgdisk -n:0:0:+256G -t:0:8300 -c:0:DATA $yo_device
-# sgdisk -n:0:0:0     -t:0:8300 -c:0:HOME $yo_device
+# sgdisk -n:0:0:0     -t:0:8302 -c:0:HOME $yo_device
 #
 ```
 
@@ -74,21 +74,21 @@ Examples:
 >|---|------|------|------|--------|--------------------|---------|
 >| 1 | SWAP | 8200 |   8G |   --   |         --         | Linux swap |
 >| 2 | PAST | 8300 |  80G | btrfs  | /root/past         | timeshift, compression zsd:8 |
->| 3 | ROOT | 8304 |  48G | ext4   | /                  | Linux root x86_64 |
+>| 3 | ROOT | 8304 |  48G | ext4   | /                  | Linux root x86\_64 |
 >| 4 | BOOT | EA00 |   2G | ext4!  | /boot              | XBOOTLDR, better ext4 to avoid subtle issues for boot loading |
->| 5*| UEFI | EF00 |   1G | fat32! | /boot/efi          | efi suggests fat formatting |
->| 5*| BIOS | EF02 |   1M |   --   |         --         | bios no need formatting |
->| 6 | CODE | 8300 |  32G | f2fs   | /home/yo_user/code | compression attribute enabled, compress extensions: asm,c,cpp,txt,js ... |
->| 7 | DATA | 8300 | 256G | xfs    | /home/yo_user/data | assets |
+>| 5!| UEFI | EF00 |   1G | fat32! | /boot/efi          | efi suggests fat formatting |
+>| 5!| BIOS | EF02 |   1M |   --   |         --         | bios no need formatting |
+>| 6 | CODE | 8300 |  32G | f2fs   | /home/~USER!~/code | compression attribute enabled, compress extensions: asm,c,cpp,txt,js ... |
+>| 7 | DATA | 8300 | 256G | xfs    | /home/~USER!~/data | assets |
 >| 8 | HOME | 8302 | full | nilfs2 | /home              | Linux home/|
 
-- 5\* - either UEFI or BIOS based on your system
+- 5! - either UEFI or BIOS based on your system
 
-- if there are leftovers of previous partition signatures wipe them all
+- if there are leftovers (any information against partitions) of previous partition signatures wipe them all
 
 >
-> - ~# lsblk -f~
-> - ~# wipefs -a /dev/partitions~
+> - # lsblk -f
+> - # wipefs -a /dev/~PARTITIONS~
 >
 
 #### Pre
@@ -180,12 +180,16 @@ $ sudo vi -p /etc/timeshift/timeshift.json /tmp/past.uuid
 ```
 
 - update config with backup_device_uuid PAST partition uuid, add to exclude list:
-> - /root/\*\*
-> - /root/past/\*\*
-> - /home/\*\*
-> - /home/~~USER~~/data/\*\*
-> - /home/~~USER~~/code/\*\*
 
+```txt
+"/root/\*\*",
+"/root/past/\*\*",
+"/home/\*\*",
+"/home/~~USER~~/code/\*\*",
+"/home/~~USER~~/data/\*\*"
+```
+
+- change ~~USER~~ to your user name
 - grub should be on BOOT partition (device partition ended with 4)
 
 ```bash

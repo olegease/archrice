@@ -1,7 +1,7 @@
 ## LEGACY
 > x11
 
-#### Device Manager
+#### Display Manager
 > xdm-archlinux
 
 ```bash

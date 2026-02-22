@@ -6,7 +6,6 @@
 
 ```bash
 $ sudo pacman -S xorg-server xdm-archlinux
-$ sudo systemctl enable xdm-archlinux.service
 ```
 
 #### Window Manager
@@ -18,7 +17,7 @@ $ cd
 $ echo "export TERMINAL=alacritty" > .xsession
 $ echo "exec herbstluftwm" >> .xsession
 $ chmod +x .xsession
-$ sudo systemctl start xdm-archlinux.service
+$ sudo systemctl enable --now xdm-archlinux.service
 ```
 
 - alt-enter to open terminal emulator, and configure window manager

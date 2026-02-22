@@ -2,26 +2,26 @@
 > wayland
 
 #### Display Manager
-> greetd-regreet (regreet needs wayland compositor so tight them together)
+> nwg-hello (needs wayland compositor so tight them together) configuration
 
 ```bash
-$ sudo pacman -S hyprland kitty greetd-regreet
-$ echo "exec-once = regreet; hyprctl dispatch exit" | sudo tee /etc/config/hypr.conf
-
+$ sudo pacman -S hyprland kitty nwg-hello
 ```
 
-- edit `command = "start-hyprland -- -c /etc/greetd/hypr.conf`
+- edit `command = "start-hyprland -- -c /etc/nwg-hello/hyprland.conf`
 ```bash
 $ sudo vi /etc/greetd/config.toml
 ```
 
-- configure regreet appearance
+- configure nwg-hello appearance
 ```bash
-$ sudo vi /etc/greetd/regreet.toml
+$ cd /etc/nwg-hello/
+$ cp nwg-hello-default.json nwg-hello.json
+$ sudo vi nwg-hello-default.json
 ```
 
 ```bash
-$ sudo systemctl start greetd.service
+$ sudo systemctl enable --now greetd.service
 ```
 
 #### Window manager

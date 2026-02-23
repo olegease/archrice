@@ -36,6 +36,7 @@ Examples:
 # export yo_exts_=s,asm,css,html,md,txt,c,h,cc,hh,hpp,cpp,js,mjs,hxx,cxx
 # export yo_compress="compress_extension=${yo_exts_//,/,compress_extension=}"
 # export yo_user=your-user-name
+# read -sp "$yo_user password: " yo_pass_ && export yo_pass=$yo_pass_ && unset $yo_pass_ && echo
 # export yo_host=your-host-name
 # export yo_zone=your-zone-name
 # export yo_keys=your-keymap
@@ -132,9 +133,11 @@ Examples:
 # grub-mkconfig -o /boot/grub/grub.cfg
 # useradd -m $yo_user
 # usermod -aG wheel $yo_user
+# echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/$yo_user
 # visudo
-# passwd
-# passwd $yo_user
+# echo "$yo_user:$yo_pass" | chpasswd
+# unset $yo_pass
+# echo "root:root" | chpasswd
 # mkdir /root/past
 # su - $yo_user
 $ mkdir {code,data}

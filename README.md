@@ -2,7 +2,7 @@
 
 > Arch installation on typical bios or uefi devices with completely REMOVING data
 
-> Caution: for iso from 2026-02-01
+> Caution: for iso from 2026-03-01
 
 ## Installation
 
@@ -12,6 +12,12 @@
 # setfont ter-c28b
 # timedatectl
 # ping ping.archlinux.org
+# curl -L -o INSTALL.md https://github.com/olegease/archrice/raw/refs/heads/main/README.md
+# curl -L -o archrice.zip https://github.com/olegease/archrice/archive/refs/heads/main.zip
+# python -m zipfile -e archrice.zip .
+# cd archrice-main/source/scripts
+# chmod +x install.sh
+# ./install.sh > install.txt
 ```
 
 - TODO add wifi and other connections link
@@ -36,7 +42,8 @@ Examples:
 # export yo_exts_=s,asm,css,html,md,txt,c,h,cc,hh,hpp,cpp,js,mjs,hxx,cxx
 # export yo_compress="compress_extension=${yo_exts_//,/,compress_extension=}"
 # export yo_user=your-user-name
-# read -sp "$yo_user password: " yo_pass_ && export yo_pass=$yo_pass_ && unset $yo_pass_ && echo
+# read -s "yo_pass_? $yo_user password: " yo_pass_ && export yo_pass=$yo_pass_ && unset $yo_pass_
+# read -s "yo_pass_? root password: " yo_pass_ && export yo_root=$yo_pass_ && unset $yo_pass_
 # export yo_host=your-host-name
 # export yo_zone=your-zone-name
 # export yo_keys=your-keymap
@@ -119,7 +126,7 @@ Examples:
 ```bash
 # mkdir /mnt/etc
 # echo KEYMAP=$yo_keys > /mnt/etc/vconsole.conf
-# pacstrap -K /mnt base base-devel linux linux-firmware neovim networkmanager grub ${yo_uefi}
+# pacstrap -K /mnt base base-devel linux linux-firmware neovim networkmanager grub $yo_uefi
 # arch-chroot /mnt
 # ln -s /usr/bin/nvim /usr/bin/vi
 # ln -sf /usr/share/zoneinfo/$yo_zone /etc/localtime

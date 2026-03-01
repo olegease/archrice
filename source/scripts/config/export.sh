@@ -7,6 +7,7 @@ read -s "t_? your password: " && export yo_pass=$t_ && unset t_
 [ -z "$yo_pass" ] && echo "password cannot be empty" && exit 1
 read -s "t_? repeat password: " && yo_pass_=$t_ && unset t_
 [ "$yo_pass" != "$yo_pass_" ] && echo "user passwords mismatch" && exit 1
+echo
 unset yo_pass_
 # root
 read -s "t_? root password, (root): " && yo_root_=$t_ && unset t_
@@ -22,7 +23,7 @@ export yo_deswap=${yo_device}1
 export yo_depast=${yo_device}2
 export yo_deroot=${yo_device}3
 export yo_deboot=${yo_device}4
-[ -n "$yo_uefi" ] && export yo_deuefi=${yo_device}5
+[ -n "$yo_uefi" ] && export yo_deuefi=${yo_device}5 || export yo_debios=${yo_device}5
 export yo_decode=${yo_device}6
 export yo_dedata=${yo_device}7
 export yo_dehome=${yo_device}8
@@ -34,6 +35,7 @@ export yo_szboot="+2G"
 read "t_? device code size, (*)G: " && export yo_szcode="+${t_}G"
 read "t_? device data size, (*)G: " && export yo_szdata="+${t_}G"
 # home size is rest of the device remaining size
+export yo_szhome="0"
 # other
 read "t_? your keyboard mappings, (us): " && export yo_keys=$t_
 [ -z "$yo_keys" ] && yo_keys=us

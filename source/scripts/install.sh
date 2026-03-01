@@ -1,5 +1,5 @@
 #!/bin/zsh
-
+set -e
 source config/export.sh
 # showing export values for debugging purposes, but hiding passwords
 echo "debug variables:"
@@ -45,8 +45,8 @@ wipefs -a $yo_dehome
 # formatting
 echo "formatting partitions..."
 mkswap -L SWAP $yo_deswap
-mkfs.ext4 -L PAST $yo_depast
 mkfs.ext4 -L ROOT $yo_deroot
+mkfs.ext4 -L BOOT $yo_deboot
 mkfs.nilfs2 -L HOME $yo_dehome
 [ -n "$yo_uefi" ] && mkfs.fat -n UEFI -F 32 $yo_deuefi
 # mounting
@@ -56,6 +56,34 @@ mount -L ROOT /mnt
 mount -L BOOT --mkdir /mnt/boot
 mount -L HOME --mkdir /mnt/home
 [ -n "$yo_uefi" ] && mount -L UEFI --mkdir /mnt/boot/efi
+# pacstrap
+echo "installing base system..."
+mkdir /mnt/etc
+echo "KEYMAP=$yo_keys" > /mnt/etc/vconsole.conf
+pacstrap -K /mnt base base-devel linux linux-firmware neovim networkmanager grub $yo_uefi
+arch-chroot /mnt
+ln -s /usr/bin/nvim /usr/bin/vi
+ln -sf /usr/share/zoneinfo/$yo_zone /etc/localtime
+hwclock --systohc
+echo "$yo_lang UTF-8" >> /etc/locale.gen
+locale-gen
+echo LANG=$yo_lang > /etc/locale.conf
+echo $yo_host > /etc/hostname
+[ -z "${yo_uefi}" ] && grub-install --target=i386-pc $yo_device
+[ -n "${yo_uefi}" ] && grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
+grub-mkconfig -o /boot/grub/grub.cfg
+useradd -m $yo_user
+usermod -aG wheel $yo_user
+echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/$yo_user
+echo "$yo_user:$yo_pass" | chpasswd
+unset $yo_pass
+echo "root:$yo_root" | chpasswd
+unset $yo_root
+mkdir /root/past
+su - $yo_user
+mkdir {code,data}
+exit
+exit
 
 
 # after user creation

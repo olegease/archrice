@@ -1,5 +1,30 @@
 #!/bin/zsh
-
+# unset
+unset yo_user
+unset yo_pass
+unset yo_root
+unset yo_device
+unset yo_deswap
+unset yo_depast
+unset yo_deroot
+unset yo_deboot
+unset yo_deuefi
+unset yo_decode
+unset yo_dedata
+unset yo_dehome
+unset yo_szswap
+unset yo_szpast
+unset yo_szroot
+unset yo_szboot
+unset yo_szuefi
+unset yo_szbios
+unset yo_szcode
+unset yo_szdata
+unset yo_szhome
+unset yo_zone
+unset yo_lang
+unset yo_keys
+unset yo_host
 # user
 read "t_? your username: " && export yo_user=$t_
 [ -z "$yo_user" ] && echo "username cannot be empty" && exit 1

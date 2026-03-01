@@ -141,10 +141,10 @@ Examples:
 # useradd -m $yo_user
 # usermod -aG wheel $yo_user
 # echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/$yo_user
-# visudo
 # echo "$yo_user:$yo_pass" | chpasswd
 # unset $yo_pass
-# echo "root:root" | chpasswd
+# echo "root:$yo_root" | chpasswd
+# unset $yo_root
 # mkdir /root/past
 # su - $yo_user
 $ mkdir {code,data}

@@ -182,7 +182,7 @@ Examples:
 ```bash
 $ sudo systemctl enable --now NetworkManager.service
 $ sudo pacman -S timeshift btrfs-progs dosfstools f2fs-tools e2fsprogs nilfs-utils xfsprogs htop
-$ cp /etc/timeshift/default.json /etc/timeshift/timeshift.json
+$ sudo cp /etc/timeshift/default.json /etc/timeshift/timeshift.json
 $ sudo lsblk -o LABEL,UUID | grep PAST > /tmp/past.uuid
 $ sudo vi -p /etc/timeshift/timeshift.json /tmp/past.uuid
 ```

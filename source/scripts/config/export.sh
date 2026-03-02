@@ -52,7 +52,8 @@ export yo_deswap=${yo_device}1
 export yo_depast=${yo_device}2
 export yo_deroot=${yo_device}3
 export yo_deboot=${yo_device}4
-[ -n "$yo_uefi" ] && export yo_deuefi=${yo_device}5 || export yo_debios=${yo_device}5
+[ -n "$yo_uefi" ] && export yo_deuefi=${yo_device}5
+[ -z "$yo_uefi" ] && export yo_debios=${yo_device}5
 export yo_decode=${yo_device}6
 export yo_dedata=${yo_device}7
 export yo_dehome=${yo_device}8
@@ -60,7 +61,8 @@ read "t_? device swap size, (*)G: " && export yo_szswap="+${t_}G"
 read "t_? device past size, (*)G: " && export yo_szpast="+${t_}G"
 read "t_? device root size, (*)G: " && export yo_szroot="+${t_}G"
 export yo_szboot="+2G"
-[ -n "$yo_uefi" ] && export yo_szuefi="+1G" || export yo_szbios="+1M"
+[ -n "$yo_uefi" ] && export yo_szuefi="+1G" 
+[ -z "$yo_uefi" ] && export yo_szbios="+1M"
 read "t_? device code size, (*)G: " && export yo_szcode="+${t_}G"
 read "t_? device data size, (*)G: " && export yo_szdata="+${t_}G"
 # home size is rest of the device remaining size

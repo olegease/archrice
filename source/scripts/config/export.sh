@@ -48,15 +48,18 @@ export yo_compress="compress_extension=${yo_exts_//,/,compress_extension=}"
 [ -d /sys/firmware/efi ] && export yo_uefi=efibootmgr
 echo $yo_uefi
 read "t_? your device, (/dev/)...: " && export yo_device=/dev/$t_
-export yo_deswap=${yo_device}1
-export yo_depast=${yo_device}2
-export yo_deroot=${yo_device}3
-export yo_deboot=${yo_device}4
-[ -n "$yo_uefi" ] && export yo_deuefi=${yo_device}5
-[ -z "$yo_uefi" ] && export yo_debios=${yo_device}5
-export yo_decode=${yo_device}6
-export yo_dedata=${yo_device}7
-export yo_dehome=${yo_device}8
+[ -z "$yo_device" ] && echo "device cannot be empty" && exit 1
+yo_p=""
+[ $yo_device == *[0-9] ] && yo_p="p"
+export yo_deswap=${yo_device}${yo_p}1
+export yo_depast=${yo_device}${yo_p}2
+export yo_deroot=${yo_device}${yo_p}3
+export yo_deboot=${yo_device}${yo_p}4
+[ -n "$yo_uefi" ] && export yo_deuefi=${yo_device}${yo_p}5
+[ -z "$yo_uefi" ] && export yo_debios=${yo_device}${yo_p}5
+export yo_decode=${yo_device}${yo_p}6
+export yo_dedata=${yo_device}${yo_p}7
+export yo_dehome=${yo_device}${yo_p}8
 read "t_? device swap size, (*)G: " && export yo_szswap="+${t_}G"
 read "t_? device past size, (*)G: " && export yo_szpast="+${t_}G"
 read "t_? device root size, (*)G: " && export yo_szroot="+${t_}G"

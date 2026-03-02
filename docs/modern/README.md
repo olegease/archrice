@@ -5,7 +5,7 @@
 > nwg-hello (needs wayland compositor so tight them together) configuration
 
 ```bash
-$ sudo pacman -S hyprland kitty nwg-hello
+$ sudo pacman -S hyprland kitty nwg-hello nwg-look brightnessctl pipewire-pulse mako libnotify vivaldi
 ```
 
 - edit `command = "start-hyprland -- -c /etc/nwg-hello/hyprland.conf`
@@ -31,8 +31,19 @@ $ sudo vi -p nwg-hello.json nwg-hello.css
 $ sudo systemctl enable --now greetd.service
 ```
 
-#### Window manager
+- set dark theme
+```bash
+$ nwg-look
+```
+
+#### Window Manager
 > hyprland configuration
 
-#### Terminal emulator
+#### Terminal Emulator
 > kitty configuration
+
+#### File Manager
+> thunar
+
+#### Notifier
+>

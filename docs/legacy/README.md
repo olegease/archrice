@@ -12,7 +12,7 @@ $ sudo pacman -S xorg-server xdm-archlinux
 > herbstluftwm
 
 ```bash
-$ sudo pacman -S alacritty herbstluftwm
+$ sudo pacman -S alacritty herbstluftwm firefox
 $ cd
 $ echo "export TERMINAL=alacritty" > .xsession
 $ echo "exec herbstluftwm" >> .xsession

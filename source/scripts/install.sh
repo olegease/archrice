@@ -4,8 +4,6 @@ source config/export.sh
 # showing export values for debugging purposes, but hiding passwords
 echo "debug variables:"
 echo yo_user: $yo_user
-echo -n yo_pass: && [ -z "$yo_pass" ] && echo " error: password is empty" || echo " ****"
-echo yo_root: "****"
 echo yo_device: $yo_device
 echo yo_deswap: $yo_deswap: $yo_szswap
 echo yo_depast: $yo_depast: $yo_szpast
@@ -21,6 +19,10 @@ echo yo_keys: $yo_keys
 echo yo_host: $yo_host
 # partitioning
 echo "partitioning device $yo_device..."
+set +e
+swapoff $yo_deswap
+umount -R /mnt
+set -e
 sgdisk -Z $yo_device
 sgdisk -n:0:0:$yo_szswap -t:0:8200 -c:0:SWAP $yo_device
 sgdisk -n:0:0:$yo_szpast -t:0:8300 -c:0:PAST $yo_device
@@ -61,31 +63,25 @@ echo "installing base system..."
 mkdir /mnt/etc
 echo "KEYMAP=$yo_keys" > /mnt/etc/vconsole.conf
 pacstrap -K /mnt base base-devel linux linux-firmware neovim networkmanager grub $yo_uefi
-arch-chroot /mnt
-ln -s /usr/bin/nvim /usr/bin/vi
-ln -sf /usr/share/zoneinfo/$yo_zone /etc/localtime
-hwclock --systohc
-echo "$yo_lang UTF-8" >> /etc/locale.gen
-locale-gen
-echo LANG=$yo_lang > /etc/locale.conf
-echo $yo_host > /etc/hostname
-[ -z "${yo_uefi}" ] && grub-install --target=i386-pc $yo_device
-[ -n "${yo_uefi}" ] && grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
-grub-mkconfig -o /boot/grub/grub.cfg
-useradd -m $yo_user
-usermod -aG wheel $yo_user
-echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/$yo_user
-echo "$yo_user:$yo_pass" | chpasswd
-unset $yo_pass
-echo "root:$yo_root" | chpasswd
-unset $yo_root
-mkdir /root/past
-su - $yo_user
-mkdir {code,data}
-exit
-exit
-
-
-# after user creation
-#unset $yo_root
-#unset $yo_pass
+arch-chroot /mnt /bin/bash -c '
+    ln -s /usr/bin/nvim /usr/bin/vi
+    ln -sf /usr/share/zoneinfo/$yo_zone /etc/localtime
+    hwclock --systohc
+    echo "$yo_lang UTF-8" >> /etc/locale.gen
+    locale-gen
+    echo LANG=$yo_lang > /etc/locale.conf
+    echo $yo_host > /etc/hostname
+    [ -z "${yo_uefi}" ] && grub-install --target=i386-pc $yo_device
+    [ -n "${yo_uefi}" ] && grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
+    grub-mkconfig -o /boot/grub/grub.cfg
+    useradd -m $yo_user
+    usermod -aG wheel $yo_user
+    echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/$yo_user
+    chpasswd <<< "$yo_user:$yo_pass"
+    unset $yo_pass
+    chpasswd <<< "root:$yo_root"
+    unset $yo_root
+    mkdir /root/past
+    mkdir /home/$yo_user/{code,data}
+    exit
+'

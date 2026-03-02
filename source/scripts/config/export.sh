@@ -3,6 +3,7 @@
 unset yo_user
 unset yo_pass
 unset yo_root
+unset yo_compress
 unset yo_device
 unset yo_deswap
 unset yo_depast
@@ -40,6 +41,9 @@ read -s "t_? root password, (root): " && yo_root_=$t_ && unset t_
 [ "$yo_root" != "root" ] && read -s "yo_root_? repeat password: " || yo_root_=$yo_root
 [ "$yo_root" != "$yo_root_" ] && echo "root passwords mismatch" && exit 1
 unset yo_root_
+# compress
+export yo_exts_=md,txt,css,html,js,mjs,s,asm,c,h,cc,hh,cpp,hpp,cxx,hxx
+export yo_compress="compress_extension=${yo_exts_//,/,compress_extension=}"
 # device
 [ -d /sys/firmware/efi ] && export yo_uefi=efibootmgr
 echo $yo_uefi

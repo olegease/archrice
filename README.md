@@ -39,7 +39,7 @@ Examples:
 
 ```bash
 # [ -d /sys/firmware/efi ] && export yo_uefi=efibootmgr
-# export yo_exts_=s,asm,css,html,md,txt,c,h,cc,hh,hpp,cpp,js,mjs,hxx,cxx
+# export yo_exts_=md,txt,css,html,js,mjs,s,asm,c,h,cc,hh,cpp,hpp,cxx,hxx
 # export yo_compress="compress_extension=${yo_exts_//,/,compress_extension=}"
 # export yo_user=your-user-name
 # read -s "yo_pass_? $yo_user password: " yo_pass_ && export yo_pass=$yo_pass_ && unset $yo_pass_

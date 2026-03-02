@@ -83,7 +83,6 @@ arch-chroot /mnt /bin/bash -c '
     unset $yo_root
     mkdir /root/past
     mkdir /home/$yo_user/{code,data}
-    exit
 '
 # post install
 echo "post install steps..."

@@ -140,7 +140,7 @@ Examples:
 # grub-mkconfig -o /boot/grub/grub.cfg
 # useradd -m $yo_user
 # usermod -aG wheel $yo_user
-# echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/$yo_user
+# echo "%wheel ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers.d/$yo_user
 # chpasswd <<< "$yo_user:$yo_pass"
 # unset $yo_pass
 # chpasswd <<< "root:$yo_root"

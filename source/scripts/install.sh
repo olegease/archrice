@@ -76,7 +76,7 @@ arch-chroot /mnt /bin/bash -c '
     grub-mkconfig -o /boot/grub/grub.cfg
     useradd -m $yo_user
     usermod -aG wheel $yo_user
-    echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/$yo_user
+    echo "%wheel ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers.d/$yo_user
     chpasswd <<< "$yo_user:$yo_pass"
     unset $yo_pass
     chpasswd <<< "root:$yo_root"
@@ -85,3 +85,15 @@ arch-chroot /mnt /bin/bash -c '
     mkdir /home/$yo_user/{code,data}
     exit
 '
+# post install
+echo "post install steps..."
+mkfs.btrfs -L PAST $yo_depast
+mkfs.xfs -L DATA $yo_dedata
+mkfs.f2fs -l CODE -O extra_attr,compression $yo_decode
+mount -L PAST -o compress=zstd:8 /mnt/root/past
+mount -L DATA /mnt/home/$yo_user/data
+mount -L CODE -o $yo_compress /mnt/home/$yo_user/code
+chown -R 1000:1000 /mnt/home/$yo_user
+genfstab -U /mnt > /mnt/etc/fstab
+umount -R /mnt
+echo "installation complete, you can now reboot into your new system"

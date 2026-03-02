@@ -35,6 +35,7 @@ sgdisk -n:0:0:$yo_szdata -t:0:8300 -c:0:DATA $yo_device
 sgdisk -n:0:0:$yo_szhome -t:0:8302 -c:0:HOME $yo_device
 # making sure all partitions are wiped before formatting
 echo "wiping partitions..."
+partprobe $yo_device
 wipefs -a $yo_deswap
 wipefs -a $yo_depast
 wipefs -a $yo_deroot

@@ -50,7 +50,7 @@ echo $yo_uefi
 read "t_? your device, (/dev/)...: " && export yo_device=/dev/$t_
 [ -z "$yo_device" ] && echo "device cannot be empty" && exit 1
 yo_p=""
-[ $yo_device == *[0-9] ] && yo_p="p"
+[[ $yo_device == *[0-9] ]] && yo_p="p"
 export yo_deswap=${yo_device}${yo_p}1
 export yo_depast=${yo_device}${yo_p}2
 export yo_deroot=${yo_device}${yo_p}3

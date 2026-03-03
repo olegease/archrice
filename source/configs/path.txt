@@ -6,5 +6,6 @@ $ modern/hyprpaper/hyprpaper.conf : ~/.config/hypr/
 # modern/nwg-hello/nwg-hello.css : /etc/nwg-hello/
 # modern/nwg-hello/nwg-hello.json : /etc/nwg-hello/
 # modern/greetd/config.toml : /etc/greetd/
-
+$ shared/gtk3/settings.ini : ~/.config/gtk-3.0/
+$ shared/gtk4/settings.ini : ~/.config/gtk-4.0/
 

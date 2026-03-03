@@ -23,7 +23,7 @@ $ sudo pacman -S adobe-source-{serif,sans,code-pro}-fonts
 ## Audio
 
 ```bash
-$ pipewire-{alsa,pulse,jack} wireplumber
+$ pipewire-{alsa,pulse,jack} wireplumber playerctl
 $ systemctl --user enable --now pipewire pipewire-pulse wireplumber
 $ wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.50
 ```

@@ -207,4 +207,10 @@ $ sudo timeshift --restore
 
 - check if it actually all working after restore.
 
+#### Additional
+
+- install essentials: docs/README.md
+- install gui: docs/modern/README.md or docs/legacy/README.md
+- install other: docs/shared/README.md
+
 ###### each folder MAY contain README with additional materials

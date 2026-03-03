@@ -10,5 +10,20 @@ Do not use packages that have QT dependancies
 ## Essential
 
 ```bash
-$ sudo pacman -S man-db man-pages chromium pipewire-jack archlinux-wallpaper
+$ sudo pacman -S man-db man-pages chromium archlinux-wallpaper unzip
+```
+
+## Fonts
+
+```bash
+$ sudo pacman -S adobe-source-{serif,sans,code-pro}-fonts
+
+```
+
+## Audio
+
+```bash
+$ pipewire-{alsa,pulse,jack} wireplumber
+$ systemctl --user enable --now pipewire pipewire-pulse wireplumber
+$ wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.50
 ```

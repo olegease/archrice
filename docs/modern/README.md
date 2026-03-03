@@ -1,12 +1,15 @@
 ## MODERN
 > wayland
 
+#### Packages
+
+```bash
+$ sudo pacman -S hyprland kitty thunar hyprpaper hyprlauncher waybar nwg-hello nwg-look brightnessctl pipewire-pulse mako libnotify vivaldi
+```
+
 #### Display Manager
 > nwg-hello (needs wayland compositor so tight them together) configuration
 
-```bash
-$ sudo pacman -S hyprland kitty nwg-hello nwg-look brightnessctl pipewire-pulse mako libnotify vivaldi
-```
 
 - edit `command = "start-hyprland -- -c /etc/nwg-hello/hyprland.conf`
 ```bash
@@ -46,4 +49,4 @@ $ nwg-look
 > thunar
 
 #### Notifier
->
+> mako

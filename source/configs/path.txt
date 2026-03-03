@@ -1,0 +1,10 @@
+$ shared/neovim/init.lua : ~/.config/nvim/
+$ modern/kitty/kitty.conf : ~/.config/kitty/
+$ modern/hyprland/hyprland.conf : ~/.config/hypr/
+$ modern/hyprpaper/hyprpaper.conf : ~/.config/hypr/
+# modern/nwg-hello/hyprland.conf : /etc/nwg-hello/
+# modern/nwg-hello/nwg-hello.css : /etc/nwg-hello/
+# modern/nwg-hello/nwg-hello.json : /etc/nwg-hello/
+# modern/greetd/config.toml : /etc/greetd/
+
+

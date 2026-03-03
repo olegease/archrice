@@ -10,5 +10,5 @@ Do not use packages that have QT dependancies
 ## Essential
 
 ```bash
-$ sudo pacman -S man-db man-pages chromium
+$ sudo pacman -S man-db man-pages chromium pipewire-jack archlinux-wallpaper
 ```

@@ -1,0 +1,32 @@
+* {
+    font-family: "Source Sans Pro", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+}
+
+window#waybar {
+    background: transparent
+}
+
+#window, #workspaces {
+    margin: 0 8px
+}
+
+#workspaces button {
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: inset 0 -3px transparent;
+    color: #888;	
+    padding: 0 8px
+}
+
+#workspaces button:hover, #workspaces button.focused, #workspaces button.active {
+    background: inherit;
+    box-shadow: inset 0 -3px #ccc;
+    color: #ccc
+}
+
+#clock, #backlight, #battery, #pulseaudio {
+    color: #ccc;
+    padding: 0 8px
+}

@@ -1,0 +1,46 @@
+// -*- mode: jsonc -*-
+{
+    "layer": "top",
+    "margin-bottom": 0,
+    "margin-top": 8,
+    "margin-right": 8,
+    "margin-left": 8,
+    // Choose the order of the modules
+    "modules-left": [
+        "hyprland/workspaces",
+        "hyprland/window"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "backlight",
+        "battery",
+        "pulseaudio"
+    ],
+    "hyprland/workspaces": {},
+    "hyprland/window": {},
+    "clock": {
+   	"interval": 60,
+    	"format": "{:%H:%M}",
+    	"max-length": 25
+    },
+    "backlight": {
+        "format": "Bright: {percent}%"
+    },
+    "battery": {
+        "states": {
+            "good": 80,
+            "warning": 40,
+            "critical": 20
+        },
+        "format": "Battery: {capacity}%",
+        "format-full": "Battery Full",
+        "format-charging": "Battery Charging: {capacity}%",
+        "format-plugged": "Battery Plugged: {capacity}%"
+    },
+    "pulseaudio": {
+        "format": "Volume: {volume}%",
+        "format-muted": "Volume Muted"
+    }
+}

@@ -82,17 +82,15 @@ arch-chroot /mnt /bin/bash -c '
     unset $yo_pass
     chpasswd <<< "root:$yo_root"
     unset $yo_root
-    mkdir /root/past
-    mkdir /home/$yo_user/{code,data}
 '
 # post install
 echo "post install steps..."
 mkfs.btrfs -L PAST $yo_depast
 mkfs.xfs -L DATA $yo_dedata
 mkfs.f2fs -l CODE -O extra_attr,compression $yo_decode
-mount -L PAST -o compress=zstd:8 /mnt/root/past
-mount -L DATA /mnt/home/$yo_user/data
-mount -L CODE -o $yo_compress /mnt/home/$yo_user/code
+mount -L PAST -o compress=zstd:8 --mkdir /mnt/root/past
+mount -L DATA --mkdir /mnt/home/$yo_user/data
+mount -L CODE -o $yo_compress --mkdir /mnt/home/$yo_user/code
 chown -R 1000:1000 /mnt/home/$yo_user
 genfstab -U /mnt > /mnt/etc/fstab
 umount -R /mnt

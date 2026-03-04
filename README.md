@@ -12,7 +12,6 @@
 # setfont ter-c28b
 # timedatectl
 # ping ping.archlinux.org
-# curl -L -o INSTALL.md https://github.com/olegease/archrice/raw/refs/heads/main/README.md
 # curl -L -o archrice.zip https://github.com/olegease/archrice/archive/refs/heads/main.zip
 # python -m zipfile -e archrice.zip .
 # cd archrice-main/source/scripts
@@ -145,8 +144,7 @@ Examples:
 # unset $yo_pass
 # chpasswd <<< "root:$yo_root"
 # unset $yo_root
-# mkdir /root/past
-# mkdir /home/$yo_user/{code,data}
+# mkcp -s
 # exit
 ```
 
@@ -163,9 +161,9 @@ Examples:
 - mounting
 
 ```bash
-# mount -L PAST -o compress=zstd:8 /mnt/root/past
-# mount -L DATA /mnt/home/$yo_user/data
-# mount -L CODE -o $yo_compress /mnt/home/$yo_user/code
+# mount -L PAST -o compress=zstd:8 --mkdir /mnt/root/past
+# mount -L DATA --mkdir /mnt/home/$yo_user/data
+# mount -L CODE -o $yo_compress --mkdir /mnt/home/$yo_user/code
 # chown -R 1000:1000 /mnt/home/$yo_user
 ```
 
@@ -190,11 +188,11 @@ $ sudo vi -p /etc/timeshift/timeshift.json /tmp/past.uuid
 - update config with backup_device_uuid PAST partition uuid, add to exclude list:
 
 ```txt
-"/root/\*\*",
-"/root/past/\*\*",
-"/home/\*\*",
-"/home/~~USER~~/code/\*\*",
-"/home/~~USER~~/data/\*\*"
+"/root/**",
+"/root/past/**",
+"/home/**",
+"/home/~~USER~~/code/**",
+"/home/~~USER~~/data/**"
 ```
 
 - change ~~USER~~ to your user name

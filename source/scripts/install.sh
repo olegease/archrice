@@ -82,6 +82,7 @@ arch-chroot /mnt /bin/bash -c '
     unset $yo_pass
     chpasswd <<< "root:$yo_root"
     unset $yo_root
+    mkcp -s
 '
 # post install
 echo "post install steps..."

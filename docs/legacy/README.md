@@ -9,7 +9,7 @@ $ sudo pacman -S xorg-server xdm-archlinux
 ```
 
 #### Window Manager
-> herbstluftwm
+> herbstluftwm (default configuration at `/etc/xgd/herbstluftwm/autostart`)
 
 ```bash
 $ sudo pacman -S alacritty herbstluftwm firefox lollypop feh
@@ -25,8 +25,7 @@ $ sudo systemctl enable --now xdm-archlinux.service
 ```bash
 $ cd
 $ mkdir -p .config/herbstluftwm
-$ cp /etc/xgd/herbstluftwm/autostart .config/herbstluftwm
-$ vi .config/herbstluftwm/autostart
+$ cp code/archrice/source/configs/legacy/herbstluftwm/autostart .config/herbstluftwm/
 ```
 
 - change default mod key from alt to super key

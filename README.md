@@ -172,6 +172,8 @@ Examples:
 
 ```bash
 # genfstab -U /mnt > /mnt/etc/fstab
+# mkdir /mnt/home/$yo_user/code/archrice
+# cp -r archrice-main/* /mnt/home/$yo_user/code/archrice/
 # umount -R /mnt
 # reboot
 ```

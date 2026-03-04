@@ -8,4 +8,4 @@ $ modern/hyprpaper/hyprpaper.conf : ~/.config/hypr/
 # modern/greetd/config.toml : /etc/greetd/
 $ shared/gtk3/settings.ini : ~/.config/gtk-3.0/
 $ shared/gtk4/settings.ini : ~/.config/gtk-4.0/
-
+$ legacy/herbstluftwm/autostart : ~/.config/herbstluftwm/

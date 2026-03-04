@@ -127,6 +127,7 @@ Examples:
 # echo KEYMAP=$yo_keys > /mnt/etc/vconsole.conf
 # pacstrap -K /mnt base base-devel linux linux-firmware neovim networkmanager grub $yo_uefi
 # arch-chroot /mnt
+# pacman -S man-db man-pages btrfs-progs dosfstools f2fs-tools e2fsprogs nilfs-utils xfsprogs
 # ln -s /usr/bin/nvim /usr/bin/vi
 # ln -sf /usr/share/zoneinfo/$yo_zone /etc/localtime
 # hwclock --systohc
@@ -179,7 +180,7 @@ Examples:
 
 ```bash
 $ sudo systemctl enable --now NetworkManager.service
-$ sudo pacman -S timeshift btrfs-progs dosfstools f2fs-tools e2fsprogs nilfs-utils xfsprogs htop
+$ sudo pacman -S timeshift htop
 $ sudo cp /etc/timeshift/default.json /etc/timeshift/timeshift.json
 $ sudo lsblk -o LABEL,UUID | grep PAST > /tmp/past.uuid
 $ sudo vi -p /etc/timeshift/timeshift.json /tmp/past.uuid

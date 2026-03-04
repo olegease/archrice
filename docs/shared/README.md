@@ -17,10 +17,23 @@ $ cp source/configs/gtk4/settings.ini ~/.config/gtk-4.0/
 
 ```bash
 $ sudo pacman -S git github-cli clang nodejs npm nvm opencode openssh nasm
+$ gh auth login
+```
+
+#### Source Control
+> git configuration
+
+```bash
+$ git config --global user.email "your-mail"
+$ git config --global user.name "yours-name"
 ```
 
 #### Code Editor
 > neovim configuration
+
+```bash
+$ mkdir -p ~/.config/nvim
+$ cp source/configs/neovim/init.lua ~/.config/nvim/
 
 #### LLM Helper
 > opencode configuration

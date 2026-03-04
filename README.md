@@ -127,7 +127,7 @@ Examples:
 # echo KEYMAP=$yo_keys > /mnt/etc/vconsole.conf
 # pacstrap -K /mnt base base-devel linux linux-firmware neovim networkmanager grub $yo_uefi
 # arch-chroot /mnt
-# pacman -S man-db man-pages btrfs-progs dosfstools f2fs-tools e2fsprogs nilfs-utils xfsprogs
+# pacman -S --noconfirm man-db man-pages btrfs-progs dosfstools f2fs-tools e2fsprogs nilfs-utils xfsprogs
 # ln -s /usr/bin/nvim /usr/bin/vi
 # ln -sf /usr/share/zoneinfo/$yo_zone /etc/localtime
 # hwclock --systohc

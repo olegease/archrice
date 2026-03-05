@@ -24,7 +24,8 @@
     	"format": "{:%H:%M}",
    	"interval": 60,
     	"max-length": 25,
-	"tooltip": false
+	"tooltip": true,
+	"tooltip-format": "{:%Y-%m-%d}"
     },
     "backlight": {
 	"states": {

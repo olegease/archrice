@@ -21,26 +21,41 @@
     "hyprland/workspaces": {},
     "hyprland/window": {},
     "clock": {
-   	"interval": 60,
     	"format": "{:%H:%M}",
-    	"max-length": 25
+   	"interval": 60,
+    	"max-length": 25,
+	"tooltip": false
     },
     "backlight": {
-        "format": "Bright: {percent}%"
+	"states": {
+	    "bright": 80,
+	    "lights": 60,
+	    "normal": 40,
+	    "darker": 20,
+	    "voided": 0
+	},
+        "format": "Bright:",
+	"tooltip": true,
+	"tooltip-format": "{percent}%"
     },
     "battery": {
         "states": {
+	    "full":100,
             "good": 80,
-            "warning": 40,
-            "critical": 20
+	    "norm": 60,
+            "warn": 40,
+            "crit": 20
         },
-        "format": "Battery: {capacity}%",
-        "format-full": "Battery Full",
-        "format-charging": "Battery Charging: {capacity}%",
-        "format-plugged": "Battery Plugged: {capacity}%"
+        "format": "Battery:",
+        "format-full": "Battery Full:",
+        "format-charging": "Battery Charging:",
+        "format-plugged": "Battery Plugged:",
+	"tooltip": true,
+	"tooltip-format": "{capacity}%"
     },
     "pulseaudio": {
         "format": "Volume: {volume}%",
-        "format-muted": "Volume Muted"
+        "format-muted": "Volume Muted",
+	"tooltip": false
     }
 }

@@ -10,14 +10,21 @@ Do not use packages that have QT dependancies
 ## Essential
 
 ```bash
-$ sudo pacman -S man-db man-pages chromium archlinux-wallpaper unzip
+$ sudo pacman -S chromium archlinux-wallpaper unzip
+```
+
+## Reflector
+
+```bash
+$ sudo pacman -S reflector
+$ sudo cp $ar_path/source/configs/shared/reflector/reflector.conf /etc/xdg/reflector/
+$ sudo systemctl enable --now reflector.timer
 ```
 
 ## Fonts
 
 ```bash
 $ sudo pacman -S adobe-source-{serif,sans,code-pro}-fonts
-
 ```
 
 ## Audio

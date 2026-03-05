@@ -39,6 +39,12 @@ window#waybar {
 }
 
 #clock {
+    border-left: 8px solid #144;
+    border-right: 8px solid #144;
+    border-radius: 16px
+}
+
+#clock:hover {
     border-left: 8px solid #288;
     border-right: 8px solid #288;
     border-radius: 32px

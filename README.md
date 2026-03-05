@@ -28,13 +28,13 @@
 ```
 
 Examples:
-- user: john
-- host: local
-- lang: en_US.UTF-8
-- keys: us
-- device: /dev/sda | /dev/vda | /dev/nvme0n1 (if ends on digit add `p` to partition exports before 1-8 digit )
-- zone: Atlantic/Madeira
-- uefi: efibootmgr if UEFI else empty
+- user: `john`
+- host: `local`
+- lang: `en_US.UTF-8`
+- keys: `us`
+- device: `/dev/sda` | `/dev/vda` | `/dev/nvme0n1` (if ends on digit add `p` to partition exports before 1-8 digit )
+- zone: `Atlantic/Madeira`
+- uefi: `efibootmgr` if UEFI else empty
 
 ```bash
 # [ -d /sys/firmware/efi ] && export yo_uefi=efibootmgr
@@ -174,6 +174,7 @@ Examples:
 # genfstab -U /mnt > /mnt/etc/fstab
 # mkdir /mnt/home/$yo_user/code/archrice
 # cp -r archrice-main/* /mnt/home/$yo_user/code/archrice/
+# echo "export ar_path=/home/$yo_user/code/archrice" >> /home/$yo_user/.bashrc
 # umount -R /mnt
 # reboot
 ```
@@ -188,7 +189,7 @@ $ sudo lsblk -o LABEL,UUID | grep PAST > /tmp/past.uuid
 $ sudo vi -p /etc/timeshift/timeshift.json /tmp/past.uuid
 ```
 
-- update config with backup_device_uuid PAST partition uuid, add to exclude list:
+- update config with `backup_device_uuid` PAST partition uuid, add to exclude list:
 
 ```txt
 "/root/**",

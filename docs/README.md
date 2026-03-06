@@ -10,7 +10,14 @@ Do not use packages that have QT dependancies
 ## Essential
 
 ```bash
-$ sudo pacman -S chromium archlinux-wallpaper unzip
+$ sudo pacman -S chromium archlinux-wallpaper
+```
+
+## Pacman
+> pacman configuration
+
+```bash
+$ sudo cp $ar_path/source/configs/shared/pacman/pacman.conf /etc/
 ```
 
 ## Reflector

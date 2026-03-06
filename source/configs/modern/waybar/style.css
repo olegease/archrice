@@ -1,6 +1,6 @@
 * {
     font-family: "Source Sans Pro", Roboto, Helvetica, Arial, sans-serif;
-    font-size: 16px;
+    font-size: 16px
 }
 
 window#waybar {
@@ -12,7 +12,6 @@ window#waybar {
 }
 
 #workspaces button {
-    background-color: transparent;
     border: none;
     border-radius: 0;
     box-shadow: inset 0 -3px transparent;
@@ -22,71 +21,73 @@ window#waybar {
 
 #workspaces button:hover, #workspaces button.focused, #workspaces button.active {
     background: inherit;
-    box-shadow: inset 0 -3px #ccc;
-    color: #ccc
+    box-shadow: inset 0 -3px #CCC;
+    color: #CCC
 }
 
 #window {
-    color: #aaa
+    color: #AAA
 }
-#clock, #backlight, #battery, #pulseaudio {
-    color: #ccc;
+
+#clock, #backlight, #battery, #pulseaudio, #network {
+    box-shadow: inset 0 -5px transparent;
+    color: #CCC;
     padding: 0 8px
 }
 
-#clock:hover, #backlight:hover, #battery:hover, #pulseaudio:hover {
-    color: #cc8
+#clock:hover, #backlight:hover, #battery:hover, #pulseaudio:hover, #network:hover {
+    color: #CC8
 }
 
 #clock {
     border-left: 8px solid #144;
-    border-right: 8px solid #144;
-    border-radius: 16px
+    border-radius: 16px;
+    border-right: 8px solid #144
 }
 
 #clock:hover {
     border-left: 8px solid #288;
-    border-right: 8px solid #288;
-    border-radius: 32px
+    border-radius: 32px;
+    border-right: 8px solid #288
 }
 
 #backlight.bright {
-    border-right: 20px solid #eee
+    box-shadow: inset 0 -5px #EEE
 }
 
 #backlight.lights {
-    border-right: 16px solid #ccc
+    box-shadow: inset 0 -4px #CCC
 }
 
 #backlight.normal {
-    border-right: 12px solid #aaa
+    box-shadow: inset 0 -3px #AAA
 }
 
 #backlight.darker {
-    border-right: 8px solid #888
+    box-shadow: inset 0 -2px #888
 }
 
 #backlight.voided {
-    border-right: 4px solid #444
+    box-shadow: inset 0 -1px #444
 }
 
 #battery.full {
-    border-right: 20px solid #1E8
+    box-shadow: inset 0 -5px #2C1
 }
 
 #battery.good {
-    border-right: 16px solid #2C6
+    box-shadow: inset 0 -4px #4A1
 }
 
 #battery.norm {
-    border-right: 12px solid #4A4
+    box-shadow: inset 0 -3px #8A1
 }
 
 #battery.warn {
-    border-right: 8px solid #882
+    box-shadow: inset 0 -2px #CA1
 }
 
 #battery.crit {
-    border-right: 4px solid #E61
+    box-shadow: inset 0 -1px #C21
 }
 

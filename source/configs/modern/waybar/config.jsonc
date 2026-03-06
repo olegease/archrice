@@ -1,11 +1,12 @@
 // -*- mode: jsonc -*-
 {
+    // global
     "layer": "top",
     "margin-bottom": 0,
     "margin-top": 8,
     "margin-right": 8,
     "margin-left": 8,
-    // Choose the order of the modules
+    // module positions
     "modules-left": [
         "hyprland/workspaces",
         "hyprland/window"
@@ -16,8 +17,10 @@
     "modules-right": [
         "backlight",
         "battery",
-        "pulseaudio"
+        "pulseaudio",
+	"network"
     ],
+    // module settings
     "hyprland/workspaces": {},
     "hyprland/window": {},
     "clock": {
@@ -35,7 +38,8 @@
 	    "darker": 20,
 	    "voided": 0
 	},
-        "format": "Bright:",
+        "format": "{icon}",
+	"format-icons": ["Voider", "Darker", "Normal", "Lighter", "Brighter"],
 	"tooltip": true,
 	"tooltip-format": "{percent}%"
     },
@@ -47,10 +51,10 @@
             "warn": 40,
             "crit": 20
         },
-        "format": "Battery:",
-        "format-full": "Battery Full:",
-        "format-charging": "Battery Charging:",
-        "format-plugged": "Battery Plugged:",
+        "format": "Discharging",
+        "format-full": "Battery Full",
+        "format-charging": "Charging",
+        "format-plugged": "Plugged",
 	"tooltip": true,
 	"tooltip-format": "{capacity}%"
     },
@@ -58,5 +62,11 @@
         "format": "Volume: {volume}%",
         "format-muted": "Volume Muted",
 	"tooltip": false
+    },
+    "network": {
+	"format": "{ifname}",
+	"format-wifi": "WIFI",
+	"format-ethernet": "WIRE",
+	"format-disconnected": "no internet"
     }
 }

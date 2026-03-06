@@ -18,3 +18,5 @@ Currently added `package-name (type): files`:
 - gtk4 (shared): settings.ini
 - herbstluftwm (legacy): autostart
 - waybar (modern): config.jsonc style.css
+- reflector (shared): reflector.conf
+- pacman (shared): pacman.conf

@@ -31,7 +31,7 @@ $ sudo systemctl enable --now reflector.timer
 ## Fonts
 
 ```bash
-$ sudo pacman -S adobe-source-{serif,sans,code-pro}-fonts
+$ sudo pacman -S adobe-source-{serif,sans,code-pro}-fonts noto-fonts{,-emoji}
 ```
 
 ## Audio

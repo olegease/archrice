@@ -18,17 +18,18 @@
         "backlight",
         "battery",
         "pulseaudio",
+	"pulseaudio/slider",
 	"network"
     ],
-    // module settings
+    // modules settings
     "hyprland/workspaces": {},
     "hyprland/window": {},
     "clock": {
-    	"format": "{:%H:%M}",
+    	"format": "{:%H⌚%M}",
    	"interval": 60,
     	"max-length": 25,
 	"tooltip": true,
-	"tooltip-format": "{:%Y-%m-%d}"
+	"tooltip-format": "Date: {:%Y-%m-%d}"
     },
     "backlight": {
 	"states": {
@@ -39,9 +40,9 @@
 	    "voided": 0
 	},
         "format": "{icon}",
-	"format-icons": ["Voider", "Darker", "Normal", "Lighter", "Brighter"],
+	"format-icons": ["🔅Darkest", "🔅Darker", "🔆Bright", "🔆Brighter", "🔆Brightest"],
 	"tooltip": true,
-	"tooltip-format": "{percent}%"
+	"tooltip-format": "Backlight: {percent}%"
     },
     "battery": {
         "states": {
@@ -51,22 +52,37 @@
             "warn": 40,
             "crit": 20
         },
-        "format": "Discharging",
-        "format-full": "Battery Full",
-        "format-charging": "Charging",
-        "format-plugged": "Plugged",
+        "format": "{icon}Discharging",
+        "format-full": "🔋Full",
+        "format-charging": "{icon}Charging",
+        "format-plugged": "{icon}Plugged",
+	"format-icons": [ "🪫", "🪫", "🔋", "🔋", "🔋" ],
 	"tooltip": true,
-	"tooltip-format": "{capacity}%"
+	"tooltip-format": "Battery: {capacity}%"
     },
     "pulseaudio": {
-        "format": "Volume: {volume}%",
-        "format-muted": "Volume Muted",
-	"tooltip": false
+	"states": { 
+	    "loudest":100,
+	    "speaker": 65,
+	    "quieter": 30
+	},
+        "format": "{icon}",
+	"format-icons": [ "🔈", "🔉", "🔊" ],
+        "format-muted": "🔇",
+	"tooltip": true,
+	"tooltip-format": "Volume: {volume}%"
+    },
+    "pulseaudio/slider": {
+        "max":100,
+        "min": 0,
+        "orientation": "horizontal"
     },
     "network": {
 	"format": "{ifname}",
-	"format-wifi": "WIFI",
+	"format-wifi": "🛜",
 	"format-ethernet": "WIRE",
-	"format-disconnected": "no internet"
+	"format-disconnected": "no internet",
+	"tooltip": true,
+	"tooltip-format": "Network: {ifname}"
     }
 }

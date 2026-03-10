@@ -15,7 +15,8 @@
         "clock"
     ],
     "modules-right": [
-        "backlight",
+        "temperature",
+	"backlight",
         "battery",
         "pulseaudio",
 	"pulseaudio/slider",
@@ -30,6 +31,14 @@
     	"max-length": 25,
 	"tooltip": true,
 	"tooltip-format": "Date: {:%Y-%m-%d}"
+    },
+    "temperature": {
+	"interval": 8,
+        "critical-threshold": 80,
+	"warning-threshold": 64,
+        "format": "🌡{temperatureC}℃",
+	"tooltip": true,
+	"tooltip-format": "Temperature: {temperatureC}℃"
     },
     "backlight": {
 	"states": {

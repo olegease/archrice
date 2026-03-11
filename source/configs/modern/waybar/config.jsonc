@@ -30,7 +30,7 @@
    	"interval": 60,
     	"max-length": 25,
 	"tooltip": true,
-	"tooltip-format": "Date: {:%Y-%m-%d}"
+	"tooltip-format": "Date: {:%Y-%m-%d, %A}"
     },
     "temperature": {
 	"interval": 8,

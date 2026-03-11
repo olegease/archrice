@@ -29,7 +29,7 @@ window#waybar {
     color: #AAA
 }
 
-#clock, #backlight, #battery, #pulseaudio, #network {
+#clock, #temperature, #backlight, #battery, #pulseaudio, #network {
     box-shadow: inset 0 -5px transparent;
     color: #CCC;
     padding: 0 8px
@@ -52,15 +52,18 @@ window#waybar {
 }
 
 #temperature {
-    color: #ccc
+    box-shadow: inset 0 -3px #8CC;
+    color: #8CC
 }
 
 #temperature.warning {
-    color: #cc8
+    box-shadow: inset 0 -3px #CC8;
+    color: #CC8
 }
 
 #temperature.critical {
-    color: #c88
+    box-shadow: inset 0 -3px #C88;
+    color: #C88
 }
 
 #backlight.bright {

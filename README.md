@@ -78,16 +78,16 @@ Examples:
 - for now 512G disk size oriented (FILE SYSTEM with ! is required)
 
 >| # | NAME | CODE | SIZE | SYSTEM |        PATH        | COMMENT |
->|---|------|------|------|--------|--------------------|---------|
->| 1 | SWAP | 8200 |   8G |   --   |         --         | Linux swap |
->| 2 | PAST | 8300 |  80G | btrfs  | /root/past         | timeshift, compression zsd:8 |
->| 3 | ROOT | 8304 |  48G | ext4   | /                  | Linux root x86\_64 |
->| 4 | BOOT | EA00 |   2G | ext4!  | /boot              | XBOOTLDR, better ext4 to avoid subtle issues for boot loading |
->| 5!| UEFI | EF00 |   1G | fat32! | /boot/efi          | efi suggests fat formatting |
->| 5!| BIOS | EF02 |   1M |   --   |         --         | bios no need formatting |
->| 6 | CODE | 8300 |  32G | f2fs   | /home/~USER!~/code | compression attribute enabled, compress extensions: asm,c,cpp,txt,js ... |
->| 7 | DATA | 8300 | 256G | xfs    | /home/~USER!~/data | assets |
->| 8 | HOME | 8302 | full | nilfs2 | /home              | Linux home/|
+>|---|------|------|-----:|--------|--------------------|---------|
+>| 1 |`SWAP`|`8200`|   8G |   --   |         --         | Linux swap |
+>| 2 |`PAST`|`8300`|  80G | btrfs  |`/root/past`        | timeshift, compression zsd:8 |
+>| 3 |`ROOT`|`8304`|  48G | ext4   |`/`                 | Linux root x86\_64 |
+>| 4 |`BOOT`|`EA00`|   2G | ext4!  |`/boot`             | XBOOTLDR, better ext4 to avoid subtle issues for boot loading |
+>| 5!|`UEFI`|`EF00`|   1G | fat32! |`/boot/efi`         | efi suggests fat formatting |
+>| 5!|`BIOS`|`EF02`|   1M |   --   |         --         | bios no need formatting |
+>| 6 |`CODE`|`8300`|  32G | f2fs   |`/home/~USER!~/code`| compression attribute enabled, compress extensions: asm,c,cpp,txt,js ... |
+>| 7 |`DATA`|`8300`| 256G | xfs    |`/home/~USER!~/data`| assets |
+>| 8 |`HOME`|`8302`| full | nilfs2 |`/home`             | Linux home/|
 
 - 5! - either UEFI or BIOS based on your system
 

@@ -3,8 +3,8 @@
 
 Do not use packages that have QT dependancies
 
-- legacy: x11 related, opengl, lightweight
-- modern: wayland related, vulkan extensible
+- legacy: x11 oriented, opengl, lightweight
+- modern: wayland oriented, vulkan extensible
 - shared: used in both - legacy and modern
 
 ## Essential
@@ -31,13 +31,20 @@ $ sudo systemctl enable --now reflector.timer
 ## Fonts
 
 ```bash
-$ sudo pacman -S adobe-source-{serif,sans,code-pro}-fonts noto-fonts{,-emoji}
+$ sudo pacman -S noto-fonts{,-emoji}
+```
+
+## Backlight
+
+```bash
+$ sudo pacman -S brightnessctl
+$ brightnessctl set 8%
 ```
 
 ## Audio
 
 ```bash
-$ pipewire-{alsa,pulse,jack} wireplumber playerctl
+$ sudo pacman -S pipewire-{alsa,pulse,jack} wireplumber playerctl
 $ systemctl --user enable --now pipewire pipewire-pulse wireplumber
 $ wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.50
 ```

@@ -59,23 +59,24 @@ hc mousebind $Super-Button3 resize
 # theme
 # -- set
 hc set frame_bg_transparent on
-hc set window_gap 8
-hc set frame_padding 8
+hc set frame_border_width 0
+hc set frame_padding 0
 hc set tree_style '╾│ ├└╼─┐'
+hc set window_gap 8
 # -- attr
-hc attr theme.border_width 2
 hc attr theme.active.color "#488"
+hc attr theme.border_width 1
 hc attr theme.normal.color "#111"
 # rules
 # -- remove all
 hc unrule -F
 # -- basic
-hc rule focus=on # normally focus new clients
-hc rule floatplacement=smart
-hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' floating=on
-hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
-hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
 hc rule fixedsize floating=on
+hc rule floatplacement=smart
+hc rule focus=on # normally focus new clients
+hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
+hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' floating=on
+hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
 # unlock, just to be sure
 hc unlock
 

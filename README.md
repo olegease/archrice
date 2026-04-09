@@ -86,7 +86,7 @@ Examples:
 >| 5!|`UEFI`|`EF00`|   1G | fat32! |`/boot/efi`         | efi suggests fat formatting |
 >| 5!|`BIOS`|`EF02`|   1M |   --   |         --         | bios no need formatting |
 >| 6 |`CODE`|`8300`|  32G | f2fs   |`/home/~USER!~/code`| compression attribute enabled, compress extensions: asm,c,cpp,txt,js ... |
->| 7 |`DATA`|`8300`| 256G | xfs    |`/home/~USER!~/data`| assets |
+>| 7 |`DATA`|`8300`| 224G | xfs    |`/home/~USER!~/data`| assets |
 >| 8 |`HOME`|`8302`| full | nilfs2 |`/home`             | Linux home/|
 
 - 5! - either UEFI or BIOS based on your system

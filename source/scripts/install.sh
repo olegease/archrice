@@ -95,5 +95,8 @@ mount -L DATA --mkdir /mnt/home/$yo_user/data
 mount -L CODE -o $yo_compress --mkdir /mnt/home/$yo_user/code
 chown -R 1000:1000 /mnt/home/$yo_user
 genfstab -U /mnt > /mnt/etc/fstab
+cp -r ~/archrice-main/ /mnt/home/$yo_user/data/
+cp -r ~/archrice-main/source/configs/shared/bash/.* /mnt/home/$yo_user/
+
 umount -R /mnt
 echo "installation complete, you can now reboot into your new system"

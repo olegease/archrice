@@ -19,8 +19,8 @@ hc keybind $Super-Return fullscreen toggle
 hc keybind $Super-v set_attr clients.focus.floating toggle
 # -- spawn
 hc keybind $Super-t spawn "${TERMINAL:-xterm}" # super terminal, xterm fallback, TERMINAL exported in .xsession
-hc keybind $Super-b spawn firefox # super browser
-hc keybind $Super-Alt-b spawn chromium # super alternative browser
+hc keybind $Super-b spawn chromium # super browser
+hc keybind $Super-c spawn code # super code editor
 # -- layouting
 hc keybind $Super-space cycle_layout +1 vertical horizontal grid vertical
 # -- focus cycling

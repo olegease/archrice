@@ -12,7 +12,7 @@ $ sudo pacman -S xorg-server xdm-archlinux
 > herbstluftwm (default configuration at `/etc/xgd/herbstluftwm/autostart`)
 
 ```bash
-$ sudo pacman -S alacritty herbstluftwm firefox lollypop feh
+$ sudo pacman -S alacritty herbstluftwm feh
 $ cd
 $ echo "export TERMINAL=alacritty" > .xsession
 $ echo "exec herbstluftwm" >> .xsession
@@ -32,8 +32,5 @@ $ cp code/archrice/source/configs/legacy/herbstluftwm/autostart .config/herbstlu
 
 #### Terminal Emulator
 > alacritty (configuration)
-
-#### Music Player
-> lollypop
 
 

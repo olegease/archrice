@@ -20,3 +20,4 @@ Currently added `package-name (type): files`:
 - waybar (modern): config.jsonc style.css
 - reflector (shared): reflector.conf
 - pacman (shared): pacman.conf
+- code (shared): settings.json

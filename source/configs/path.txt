@@ -13,3 +13,4 @@ $ modern/waybar/config.jsonc : ~/.config/waybar/
 $ modern/waybar/style.css : ~/.config/waybar/
 # shared/reflector/reflector.conf : /etc/xdg/reflector/
 # shared/pacman/pacman.conf : /etc/
+$ shared/code/settings.json : ~/.config/Code\ -\ OSS/User/

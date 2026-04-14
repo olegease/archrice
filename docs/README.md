@@ -28,10 +28,16 @@ $ sudo cp $ar_path/source/configs/shared/reflector/reflector.conf /etc/xdg/refle
 $ sudo systemctl enable --now reflector.timer
 ```
 
+## Steam
+
+```bash
+$ sudo pacman -S steam
+```
+
 ## Fonts
 
 ```bash
-$ sudo pacman -S noto-fonts{,-emoji}
+$ sudo pacman -S adobe-source-code-pro-fonts noto-fonts{,-emoji}
 ```
 
 ## Backlight

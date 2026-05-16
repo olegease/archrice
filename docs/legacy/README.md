@@ -25,10 +25,9 @@ $ sudo systemctl enable --now xdm-archlinux.service
 ```bash
 $ cd
 $ mkdir -p .config/herbstluftwm
-$ cp code/archrice/source/configs/legacy/herbstluftwm/autostart .config/herbstluftwm/
+$ cp $ar_path/source/configs/legacy/herbstluftwm/autostart .config/herbstluftwm/
+$ chmod +x .config/herbstluftwm/autostart
 ```
-
-- change default mod key from alt to super key
 
 #### Terminal Emulator
 > alacritty (configuration)

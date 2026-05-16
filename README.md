@@ -208,7 +208,8 @@ $ sudo timeshift --create --comment "init"
 $ sudo timeshift --restore
 ```
 
-- check if it actually all working after restore.
+- check if it actually all working after restore
+- install ucode package for your processor either `amd-ucode` or `intel-ucode`
 
 #### Additional
 

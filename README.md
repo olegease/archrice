@@ -192,11 +192,12 @@ $ sudo vi -p /etc/timeshift/timeshift.json /tmp/past.uuid
 - update config with `backup_device_uuid` PAST partition uuid, add to exclude list:
 
 ```txt
-"/root/**",
-"/root/past/**",
 "/home/**",
+"/home/~~USER~~/**",
 "/home/~~USER~~/code/**",
-"/home/~~USER~~/data/**"
+"/home/~~USER~~/data/**,
+"/root/**",
+"/root/past/**"
 ```
 
 - change ~~USER~~ to your user name

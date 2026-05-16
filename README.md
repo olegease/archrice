@@ -91,12 +91,7 @@ Examples:
 
 - 5! - either UEFI or BIOS based on your system
 
-- if there are leftovers (any information against partitions) of previous partition signatures wipe them all
-
->
-> - # lsblk -f
-> - # wipefs -a /dev/~PARTITIONS~
->
+- if there are leftovers (any information against partitions) of previous partition signatures wipe them all with `wipefs` command
 
 #### Pre
 

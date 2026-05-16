@@ -7,18 +7,13 @@ Do not use packages that have QT dependancies
 - modern: wayland oriented, vulkan extensible
 - shared: used in both - legacy and modern
 
-## Essential
-
-```bash
-$ sudo pacman -S chromium archlinux-wallpaper
-```
-
 ## Pacman
 > pacman configuration
 
 ```bash
 $ sudo cp /etc/pacman.conf /etc/pacman.conf.back
 $ sudo cp $ar_path/source/configs/shared/pacman/pacman.conf /etc/
+$ sudo pacman -Sy
 ```
 
 ## Reflector
@@ -27,6 +22,12 @@ $ sudo cp $ar_path/source/configs/shared/pacman/pacman.conf /etc/
 $ sudo pacman -S reflector
 $ sudo cp $ar_path/source/configs/shared/reflector/reflector.conf /etc/xdg/reflector/
 $ sudo systemctl enable --now reflector.timer
+```
+
+## Essential
+
+```bash
+$ sudo pacman -S chromium archlinux-wallpaper
 ```
 
 ## Steam

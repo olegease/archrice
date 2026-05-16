@@ -29,6 +29,13 @@ $ cp $ar_path/source/configs/legacy/herbstluftwm/autostart .config/herbstluftwm/
 $ chmod +x .config/herbstluftwm/autostart
 ```
 
+#### Firefox
+> chromium seems to not support legacy processor, so try firefox
+
+```bash
+$ sudo pacman -S firefox
+```
+
 #### Terminal Emulator
 > alacritty (configuration)
 

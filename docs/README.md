@@ -17,6 +17,7 @@ $ sudo pacman -S chromium archlinux-wallpaper
 > pacman configuration
 
 ```bash
+$ sudo cp /etc/pacman.conf /etc/pacman.conf.back
 $ sudo cp $ar_path/source/configs/shared/pacman/pacman.conf /etc/
 ```
 

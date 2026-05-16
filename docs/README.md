@@ -20,6 +20,7 @@ $ sudo pacman -Sy
 
 ```bash
 $ sudo pacman -S reflector
+$ sudo cp /etc/xdg/reflector/reflector.conf /etc/xdg/reflector/reflector.conf.back
 $ sudo cp $ar_path/source/configs/shared/reflector/reflector.conf /etc/xdg/reflector/
 $ sudo systemctl enable --now reflector.timer
 ```

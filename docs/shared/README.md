@@ -11,7 +11,7 @@ $ cp $ar_path/source/configs/shared/gtk4/settings.ini ~/.config/gtk-4.0/
 #### CODING
 
 ```bash
-$ sudo pacman -S boost code gdb git cmake ninja nasm nodejs n{p,v}m open{code,ssh} tree
+$ sudo pacman -S boost code gdb git cmake ninja nasm ssh tree
 ```
 
 #### Source Control

@@ -36,8 +36,11 @@ vim.api.nvim_create_autocmd( 'LspAttach', {
   end,
 } )
 -- plugins
-vim.pack.add( { } ) -- TODO? need to add < https://github.com/neovim/nvim-lspconfig >
--- nvim-lspconfig
+---- delete command example
+---- vim.pack.del( { 'nvim-lspconfig' } )
+---- add command example
+vim.pack.add( { 'https://github.com/neovim/nvim-lspconfig' } )
+-- nvim-lspconfig related
 ---- C/C++
 if vim.fn.executable( "clangd" ) == 1 then
   vim.lsp.config.clangd = {

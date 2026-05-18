@@ -69,7 +69,7 @@ local function darkness( )
   -- style groups
   local Styles = {
     Bold = { "Statement", "@punctuation" },
-    Ital = { "String" },
+    Ital = { "Comment", "String" },
   }
   local hl = vim.api.nvim_set_hl
   -- editor

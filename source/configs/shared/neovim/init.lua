@@ -56,9 +56,14 @@ end
 local function darkness( )
   vim.cmd( 'syntax on' )
   -- color groups (last wins)
+  ---- long groups
+  local WhiteColorGroup = {
+    "Constant", "String", "Type",
+    "@punctuation", "@lsp.typemod.variable.readonly.cpp",
+  }
   local Colors = {
     Grey    = { color = "#808080", groups = { "Comment", "@lsp.type.namespace.cpp" } },
-    White   = { color = "#C0C0C0", groups = { "Constant", "String", "Type", "@punctuation" } },
+    White   = { color = "#C0C0C0", groups = WhiteColorGroup },
     Blue    = { color = "#8080C0", groups = { "Identifier" } },
     Yellow  = { color = "#C0C080", groups = { "Function", "Special" } },
     Green   = { color = "#80C080", groups = { "@property" } },

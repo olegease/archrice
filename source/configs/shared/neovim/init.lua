@@ -1,5 +1,4 @@
 -- basic options
-vim.cmd( 'syntax on' )
 ---- numbers
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -9,9 +8,13 @@ vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
 vim.opt.softtabstop = 2
 vim.opt.tabstop = 8
--- autocomplete
+---- autocomplete
 vim.o.autocomplete = true
 vim.o.completeopt = 'menu,menuone,noselect'
+---- colorscheme
+vim.opt.background = "dark"
+vim.opt.termguicolors = true
+vim.cmd( "colorscheme default" )
 -- keymap
 ---- helper to trigger native keys
 local function feed_keys( key_string )
@@ -49,3 +52,45 @@ if vim.fn.executable( "clangd" ) == 1 then
   }
   vim.lsp.enable( "clangd", { } )
 end
+-- highlight
+local function darkness( )
+  vim.cmd( 'syntax on' )
+  -- color groups (last wins)
+  local Colors = {
+    Grey    = { color = "#808080", groups = { "Comment", "@lsp.type.namespace.cpp" } },
+    White   = { color = "#C0C0C0", groups = { "Constant", "String", "Type", "@punctuation" } },
+    Blue    = { color = "#8080C0", groups = { "Identifier" } },
+    Yellow  = { color = "#C0C080", groups = { "Function", "Special" } },
+    Green   = { color = "#80C080", groups = { "@property" } },
+    Magenta = { color = "#C080C0", groups = { "PreProc" } },
+    Red     = { color = "#C08080", groups = { "Statement" } },
+    Cyan    = { color = "#80C0C0", groups = { "@variable" } },
+  }
+  -- style groups
+  local Styles = {
+    Bold = { "Statement", "@punctuation" },
+    Ital = { "String" },
+  }
+  local hl = vim.api.nvim_set_hl
+  -- editor
+  hl( 0, "Normal", { bg = "#202020", fg = '#C0C0C0' } )
+  -- tokens
+  -- build lookup sets for styles
+  local bold_set = { }
+  local ital_set = { }
+  for _, g in ipairs( Styles.Bold or { } ) do bold_set[g] = true end
+  for _, g in ipairs( Styles.Ital or { } ) do ital_set[g] = true end
+  -- populate colors
+  for _, spec in pairs( Colors ) do
+    local color = spec.color
+    for _, group in ipairs( spec.groups or { } ) do
+      local opts = { }
+      if color then opts.fg = color end
+      if bold_set[group] then opts.bold = true end
+      if ital_set[group] then opts.italic = true end
+      hl(0, group, opts)
+    end -- for Groups
+  end -- for Colors
+end -- function darkness
+---- invoke highlighting overrides
+darkness( )

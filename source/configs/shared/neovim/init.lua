@@ -45,9 +45,19 @@ vim.api.nvim_create_autocmd( 'LspAttach', {
 vim.pack.add( { 'https://github.com/neovim/nvim-lspconfig' } )
 -- nvim-lspconfig related
 ---- C/C++
+vim.filetype.add( { extension = {
+    hh  = "cpp", -- C++03 legacy header file
+    cc  = "cpp", -- C++03 legacy source file
+    hpp = "cpp", -- C++11 modern header file
+    cpp = "cpp", -- C++11 modern source file
+    hxx = "cpp", -- C++17 native header file
+    cxx = "cpp", -- C++17 natice source file
+    ixx = "cpp", -- C++20 module export file
+    mxx = "cpp", -- C++20 module import file
+} } )
 if vim.fn.executable( "clangd" ) == 1 then
   vim.lsp.config.clangd = {
-    cmd = { "clangd", "--header-insertion=never" },
+    cmd = { "clangd", "--header-insertion=never", "--compile-commands-dir=build" },
     filetypes = { "c", "cpp" },
   }
   vim.lsp.enable( "clangd", { } )

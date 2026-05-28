@@ -50,8 +50,8 @@ vim.filetype.add( { extension = {
     cc  = "cpp", -- C++03 legacy source file
     hpp = "cpp", -- C++11 modern header file
     cpp = "cpp", -- C++11 modern source file
-    hxx = "cpp", -- C++17 native header file
-    cxx = "cpp", -- C++17 natice source file
+    hxx = "cpp", -- C++17 ground header file
+    cxx = "cpp", -- C++17 ground source file
     ixx = "cpp", -- C++20 module export file
     mxx = "cpp", -- C++20 module import file
 } } )

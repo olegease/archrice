@@ -8,6 +8,18 @@
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias git-log='git log --oneline'
+# switch compiler commands
+# -- gcc
+use_gcc( ) {
+  export CC=gcc
+  export CXX=g++
+  echo "Default compiler set to GCC"
+}
+use_clang( ) {
+  export CC=clang
+  export CXX=clang++
+  echo "Default compiler set to Clang"
+}
 # Primary Prompt String: terminal command prompt appearance
 PS1=' \[\033[01;36m\]\A\[\033[00m\] \[\033[01;33m\]\W \$\[\033[00m\] '
 # home user directory

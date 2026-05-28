@@ -10,12 +10,12 @@ alias grep='grep --color=auto'
 alias git-log='git log --oneline'
 # switch compiler commands
 # -- gcc
-use_gcc( ) {
+function use_gcc( ) {
   export CC=gcc
   export CXX=g++
   echo "Default compiler set to GCC"
 }
-use_clang( ) {
+function use_clang( ) {
   export CC=clang
   export CXX=clang++
   echo "Default compiler set to Clang"

@@ -1,11 +1,48 @@
 {
-    "workbench.colorTheme": "Son Dark Eight",
-    "chat.viewSessions.orientation": "stacked",
-    "editor.wordWrap": "on",
-    "editor.fontFamily": "'Source Code Pro', monospace",
-    "editor.fontSize": 16,
-    "cSpell.userWords": [
-        "Oleg'Ease'Kharchuk",
-        "andor"
-    ]
+	// workbench, editor and other global settings
+	"workbench.colorTheme": "Son Dark Eight",
+	"workbench.colorCustomizations": {
+
+	},
+	"editor.tokenColorCustomizations": {
+		"textMateRules": [
+
+		]
+	},
+	"editor.wordWrap": "on",
+	"editor.fontFamily": "'Source Code Pro', monospace",
+	"editor.fontSize": 14,
+	"editor.rulers": [ 80, 120, 160 ],
+	"chat.disableAIFeatures": true,
+	"files.associations": {
+		"*.mxx": "cpp"
+	},
+	// extensions settings
+	// -- streetsidesoftware.code-spell-checker
+	"cSpell.includeRegExpList": [
+		"/\\s[A-z][a-z]{2,20}/g"
+	],
+	"cSpell.userWords": [
+		"allin",
+		"andor",
+		"codeberg",
+		"constexpr",
+		"glfw",
+		"Khronos",
+		"Oleg",
+		"olegease",
+		"soneight"
+	],
+	// -- KylinIdeTeam.kylin-clangd
+	"clangd.headerInsertion": "never",
+	// -- llvm-vs-code-extensions.vscode-clangd
+	"clangd.arguments": [
+		"--compile-commands-dir=${workspaceFolder}/build",
+		"--header-insertion=never"
+	],
+	// -- ms-vscode.cmake-tools
+	"cmake.configureEnvironment": {
+		"CC": "${env:CC}",
+		"CXX": "${env:CXX}"
+	}
 }

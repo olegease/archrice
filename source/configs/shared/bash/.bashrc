@@ -8,6 +8,10 @@
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias git-log='git log --oneline'
+alias light-set='brightnessctl set'
+alias battery-life='cat /sys/class/power_supply/BAT0/capacity'
+alias volume-toggle='wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle'
+alias volume-set='wpctl set-volume @DEFAULT_AUDIO_SINK@'
 # switch compiler commands
 # -- gcc
 function use_gcc( ) {

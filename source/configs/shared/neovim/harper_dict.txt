@@ -1,0 +1,14 @@
+AGPL
+Affero
+CB
+CE
+HOMM
+Oleg'Ease'Kharchuk
+GLSL
+GAMELIKE
+RPG
+Raimenals
+SPDX
+andor
+v3
+

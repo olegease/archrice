@@ -39,7 +39,7 @@ vim.api.nvim_create_autocmd( 'LspAttach', {
   end,
 } )
 -- plugins
-if 0 then
+if nil then
 vim.pack.del( { 'nvim-lspconfig' } )
 end
 ---- add command example
@@ -66,16 +66,20 @@ if vim.fn.executable( "clangd" ) == 1 then
 end
 ---- `harper-ls`
 if vim.fn.executable( "harper-ls" ) == 1 then
+  local configPath = vim.fn.stdpath( "config" )
+  local dictPath = configPath .. "/harper_dict.txt"
   vim.lsp.config.harper_ls = {
     cmd = { "harper-ls", "--stdio" },
-    filetypes = { "lua" },
+    filetypes = { "cpp", "lua", "markdown" },
     settings = {
       ["harper-ls"] = {
         linters = {
-          SentenceCapitalization = false
-        }
+          SentenceCapitalization = false,
+          UseTitleCase = false
+        }, -- linters
+        userDictPath = dictPath
       }
-    }
+    } -- settings
   }
   vim.lsp.enable( "harper_ls" )
 end

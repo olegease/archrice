@@ -11,7 +11,7 @@ vim.opt.tabstop = 8
 ---- autocomplete
 vim.o.autocomplete = true
 vim.o.completeopt = 'menu,menuone,noselect'
----- colorscheme
+---- color scheme
 vim.opt.background = "dark"
 vim.opt.termguicolors = true
 vim.cmd( "colorscheme default" )
@@ -39,11 +39,12 @@ vim.api.nvim_create_autocmd( 'LspAttach', {
   end,
 } )
 -- plugins
----- delete command example
----- vim.pack.del( { 'nvim-lspconfig' } )
+if 0 then
+vim.pack.del( { 'nvim-lspconfig' } )
+end
 ---- add command example
 vim.pack.add( { 'https://github.com/neovim/nvim-lspconfig' } )
--- nvim-lspconfig related
+-- LSP configuration related
 ---- C/C++
 vim.filetype.add( { extension = {
     hh  = "cpp", -- C++03 legacy header file
@@ -55,12 +56,28 @@ vim.filetype.add( { extension = {
     ixx = "cpp", -- C++20 module export file
     mxx = "cpp", -- C++20 module import file
 } } )
+---- `clangd`
 if vim.fn.executable( "clangd" ) == 1 then
   vim.lsp.config.clangd = {
     cmd = { "clangd", "--header-insertion=never", "--compile-commands-dir=build" },
     filetypes = { "c", "cpp" },
   }
   vim.lsp.enable( "clangd", { } )
+end
+---- `harper-ls`
+if vim.fn.executable( "harper-ls" ) == 1 then
+  vim.lsp.config.harper_ls = {
+    cmd = { "harper-ls", "--stdio" },
+    filetypes = { "lua" },
+    settings = {
+      ["harper-ls"] = {
+        linters = {
+          SentenceCapitalization = false
+        }
+      }
+    }
+  }
+  vim.lsp.enable( "harper_ls" )
 end
 -- highlight
 local function darkness( )
@@ -75,11 +92,11 @@ local function darkness( )
     Grey    = { color = "#808080", groups = { "Comment", "@lsp.type.namespace.cpp" } },
     White   = { color = "#C0C0C0", groups = WhiteColorGroup },
     Blue    = { color = "#8080C0", groups = { "Identifier" } },
-    Yellow  = { color = "#C0C080", groups = { "Function", "Special" } },
-    Green   = { color = "#80C080", groups = { "@property" } },
+    Yellow  = { color = "#C0C080", groups = { "Function", "Special", "@lsp.type.macro" } },
+    Green   = { color = "#80C080", groups = { "cStructure", "cppStructure" } },
     Magenta = { color = "#C080C0", groups = { "PreProc" } },
+    Cyan    = { color = "#80C0C0", groups = { "@variable", "@property" } },
     Red     = { color = "#C08080", groups = { "Statement" } },
-    Cyan    = { color = "#80C0C0", groups = { "@variable" } },
   }
   -- style groups
   local Styles = {

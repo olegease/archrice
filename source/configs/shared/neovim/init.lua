@@ -74,7 +74,9 @@ if vim.fn.executable( "harper-ls" ) == 1 then
     settings = {
       ["harper-ls"] = {
         linters = {
+          NumericRangeEnDash = false,
           SentenceCapitalization = false,
+          ToDoHyphen = false,
           UseTitleCase = false
         }, -- linters
         userDictPath = dictPath
@@ -97,7 +99,7 @@ local function darkness( )
     White   = { color = "#C0C0C0", groups = WhiteColorGroup },
     Blue    = { color = "#8080C0", groups = { "Identifier" } },
     Yellow  = { color = "#C0C080", groups = { "Function", "Special", "@lsp.type.macro" } },
-    Green   = { color = "#80C080", groups = { "cStructure", "cppStructure" } },
+    Green   = { color = "#80C080", groups = { "cStructure", "cppStructure", "jsonKeyword" } },
     Magenta = { color = "#C080C0", groups = { "PreProc" } },
     Cyan    = { color = "#80C0C0", groups = { "@variable", "@property" } },
     Red     = { color = "#C08080", groups = { "Statement" } },

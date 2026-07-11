@@ -6,6 +6,9 @@ HOMM
 Oleg'Ease'Kharchuk
 GLSL
 GAMELIKE
+OVERGLAD
+TODO
+Overglad
 RPG
 Raimenals
 SPDX

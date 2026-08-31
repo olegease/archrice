@@ -8,10 +8,18 @@
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias git-log='git log --oneline'
-alias ar_light-set='brightnessctl set'
-alias ar_battery-life='cat /sys/class/power_supply/BAT0/capacity'
-alias ar_volume-toggle='wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle'
-alias ar_volume-set='wpctl set-volume @DEFAULT_AUDIO_SINK@'
+alias git-local='git -c commit.gpgsign=false'
+alias ar-light_set='brightnessctl set'
+alias ar-battery_life='cat /sys/class/power_supply/BAT0/capacity'
+alias ar-volume_toggle='wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle'
+alias ar-volume_set='wpctl set-volume @DEFAULT_AUDIO_SINK@'
+alias ar-cpu_info='cpupower frequency-info'
+alias ar-cpu_save='sudo cpupower frequency-set -g powersave'
+alias ar-cpu_perf='sudo cpupower frequency-set -g performance'
+alias ar-cpu_util='sudo cpupower frequency-set -g schedutil'
+alias ease-git-sync-fork='git pull root main && git push fork main'
+alias ease-git-sync-mirror='git push mirror main --tags'
+
 # switch compiler commands
 # -- gcc
 function ar_use_gcc( ) {
@@ -34,7 +42,6 @@ function ar_set_dollar_color() {
     fi
 }
 PROMPT_COMMAND=ar_set_dollar_color
-
 PS1=' \[\033[01;36m\]\A\[\033[00m\] \[\033[01;33m\]\W \[\033[01;${DOLLAR_COLOR}m\]\$\[\033[00m\] '
 # home user directory
 h="$(echo ~)"

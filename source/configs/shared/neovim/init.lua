@@ -70,7 +70,7 @@ if vim.fn.executable( "harper-ls" ) == 1 then
   local dictPath = configPath .. "/harper_dict.txt"
   vim.lsp.config.harper_ls = {
     cmd = { "harper-ls", "--stdio" },
-    filetypes = { "cpp", "lua", "markdown" },
+    filetypes = { "gitcommit", "cpp", "lua", "markdown" },
     settings = {
       ["harper-ls"] = {
         linters = {

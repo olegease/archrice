@@ -4,6 +4,8 @@
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
+# exports
+export HISTCONTROL="erasedups:ignorespace"
 # aliases
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
@@ -17,9 +19,11 @@ alias ar-cpu_info='cpupower frequency-info'
 alias ar-cpu_save='sudo cpupower frequency-set -g powersave'
 alias ar-cpu_perf='sudo cpupower frequency-set -g performance'
 alias ar-cpu_util='sudo cpupower frequency-set -g schedutil'
+alias ar-sql_start='sudo systemctl start postgresql'
+alias ar-sql_stop='sudo systemctl stop postgresql'
+alias ar-melody='mpv --no-video --shuffle'
 alias ease-git-sync-fork='git pull root main && git push fork main'
 alias ease-git-sync-mirror='git push mirror main --tags'
-
 # switch compiler commands
 # -- gcc
 function ar_use_gcc( ) {
@@ -58,4 +62,12 @@ alias code-h78="$h/data/vscode/h78/VSCode-linux-x64/bin/code"
 nvm_script="$h/.nvm/nvm.sh"
 [[ -s $nvm_script ]] && source $nvm_script
 # path to source code of configurations
-export ar_path="$h/code/hub/olegease/archrice"
+export ar_path="$h/code/ghub/olegease/archrice"
+
+# pnpm
+export PNPM_HOME='/home/oleg/.local/share/pnpm'
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+# pnpm end

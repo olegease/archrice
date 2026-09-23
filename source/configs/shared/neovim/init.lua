@@ -74,6 +74,7 @@ if vim.fn.executable( "harper-ls" ) == 1 then
     settings = {
       ["harper-ls"] = {
         linters = {
+          DisjointPrefixes = false,
           NumericRangeEnDash = false,
           SentenceCapitalization = false,
           ToDoHyphen = false,

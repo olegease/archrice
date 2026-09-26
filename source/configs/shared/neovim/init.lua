@@ -59,8 +59,20 @@ vim.filetype.add( { extension = {
 ---- `clangd`
 if vim.fn.executable( "clangd" ) == 1 then
   vim.lsp.config.clangd = {
-    cmd = { "clangd", "--header-insertion=never", "--compile-commands-dir=build" },
+    cmd = {
+      "clangd",
+      "--header-insertion=never",
+      "--compile-commands-dir=build",
+      "--experimental-modules-support"
+    },
     filetypes = { "c", "cpp" },
+    init_options = {
+      fallbackFlags = {
+        "-std=c++23",
+        "-xc++",
+        "-fmodule-file=std=" .. vim.env.HOME .. "/.cache/clangd/std.pcm"
+      }
+    }
   }
   vim.lsp.enable( "clangd", { } )
 end

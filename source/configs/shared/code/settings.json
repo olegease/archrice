@@ -1,48 +1,68 @@
 {
-	// workbench, editor and other global settings
 	"workbench.colorTheme": "Son Dark Eight",
 	"workbench.colorCustomizations": {
 
 	},
-	"editor.tokenColorCustomizations": {
-		"textMateRules": [
-
-		]
+	"editor.semanticTokenColorCustomizations": {
+		"rules": {}
 	},
-	"editor.wordWrap": "on",
+	"editor.tokenColorCustomizations": {
+		"textMateRules": []
+	},
 	"editor.fontFamily": "'Source Code Pro', monospace",
-	"editor.fontSize": 14,
-	"editor.rulers": [ 80, 120, 160 ],
+	"editor.fontSize": 16,
+	"editor.renderWhitespace": "all",
+	"editor.rulers": [
+		80,
+		120
+	],
+	"editor.wordWrap": "on",
 	"chat.disableAIFeatures": true,
 	"files.associations": {
 		"*.mxx": "cpp"
 	},
+	"git.openRepositoryInParentFolders": "always",
 	// extensions settings
 	// -- streetsidesoftware.code-spell-checker
 	"cSpell.includeRegExpList": [
-		"/\\s[A-z][a-z]{2,20}/g"
+		"/\\s[a-z]{2,20}/g"
 	],
 	"cSpell.userWords": [
 		"allin",
 		"andor",
 		"codeberg",
 		"constexpr",
+		"fetchcontent",
+		"gamelike",
 		"glfw",
 		"Khronos",
+		"nasm",
+		"nullptr",
 		"Oleg",
 		"olegease",
+		"Overglad",
 		"soneight"
 	],
-	// -- KylinIdeTeam.kylin-clangd
-	"clangd.headerInsertion": "never",
 	// -- llvm-vs-code-extensions.vscode-clangd
 	"clangd.arguments": [
 		"--compile-commands-dir=${workspaceFolder}/build",
-		"--header-insertion=never"
+		"--header-insertion=never",
+		"--experimental-modules-support"
+	],
+	"clangd.fallbackFlags": [
+		"-std=c++23",
+		"-xc++",
+		"-fmodule-file=std=${env:HOME}/.cache/clangd/std.pcm"
 	],
 	// -- ms-vscode.cmake-tools
+	"cmake.automaticReconfigure": false,
 	"cmake.configureEnvironment": {
 		"CC": "${env:CC}",
 		"CXX": "${env:CXX}"
-	}
+	},
+	"cmake.configureOnOpen": false,
+	"cmake.configureOnEdit": false,
+	"cmake.enableAutomaticKitScan": false,
+	// autoinserted
+
 }

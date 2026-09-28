@@ -5,6 +5,7 @@ $ shared/code/settings.json : ~/.config/Code\ -\ OSS/User/
 $ shared/gtk3/settings.ini : ~/.config/gtk-3.0/
 $ shared/gtk4/settings.ini : ~/.config/gtk-4.0/
 $ shared/neovim/init.lua : ~/.config/nvim/
+$ shared/clangd/config.yaml : ~/.config/clangd/
 $ legacy/herbstluftwm/autostart : ~/.config/herbstluftwm/
 # modern/greetd/config.toml : /etc/greetd/
 # modern/nwg-hello/{hyprland.lua,nwg-hello.{css,json}} : /etc/nwg-hello/
